@@ -1,0 +1,166 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import SectionShell from '../components/SectionShell.astro';
+import MindmapGraph from '../components/MindmapGraph.astro';
+import CredentialsSection from '../components/CredentialsSection.astro';
+import BlogSection from '../components/BlogSection.astro';
+import ProjectsSection from '../components/ProjectsSection.astro';
+import BooksCarousel from '../components/BooksCarousel.astro';
+import {
+  aboutHighlights,
+  educationEntries,
+  experienceTimeline,
+  personalStory,
+  resumeDownload
+} from '../data/about';
+import { contactChannels } from '../data/contact';
+import { profile } from '../data/profile';
+---
+
+<BaseLayout
+  title="Andy Araya | Creative Technologist, AI Systems Builder, Digital Product Strategist"
+  description="Andy Araya's professional website: a dark cinematic portfolio for creative technology, AI automation, product strategy, and digital leadership."
+>
+  <Hero />
+
+  <SectionShell
+    id="credentials"
+    eyebrow="01 / Credentials"
+    title="Verified learning signals with practical weight"
+    intro="A focused set of public credentials that support the technical and strategic direction of the work."
+  >
+    <CredentialsSection />
+  </SectionShell>
+
+  <SectionShell
+    id="mindmap"
+    eyebrow="02 / Mindmap"
+    title="A knowledge map of the domains, tools, and ideas I connect"
+    intro="A structured SVG placeholder for a future interactive mindmap. The goal is to show how strategy, software, automation, business, and learning connect in practice."
+  >
+    <MindmapGraph />
+  </SectionShell>
+
+  <SectionShell
+    id="projects"
+    eyebrow="03 / Projects"
+    title="Three featured project directions, framed more like case studies"
+    intro="Each concept is grounded in a real operational problem, an intentional system design approach, and a business-oriented outcome."
+  >
+    <ProjectsSection />
+  </SectionShell>
+
+  <SectionShell
+    id="books"
+    eyebrow="04 / Books"
+    title="A reading trail that shapes how I think"
+    intro="Business, finance, entrepreneurship, product, and personal growth all feed the way I approach systems and decision-making."
+  >
+    <BooksCarousel />
+  </SectionShell>
+
+  <SectionShell
+    id="blog"
+    eyebrow="05 / Blog"
+    title="A compact editorial layer for automation, knowledge, and product thinking"
+    intro="Three latest topics for now, positioned as the beginning of a more thoughtful long-form writing system."
+  >
+    <BlogSection />
+  </SectionShell>
+
+  <SectionShell
+    id="about"
+    eyebrow="06 / About Me"
+    title="A business-minded creative technologist"
+    intro="Grounded experience across creative leadership, digital strategy, formal technical training, and two recent years of deeper work in software and AI-enabled systems."
+  >
+    <div class="space-y-10" data-stagger>
+      <article class="max-w-4xl" data-reveal-child>
+        <p class="text-xs uppercase tracking-[0.2em] text-white/40">Personal Story</p>
+        <p class="mt-4 max-w-3xl text-sm leading-7 text-white/72 sm:text-base">{personalStory}</p>
+      </article>
+
+      <div class="grid gap-3 sm:grid-cols-3" data-stagger>
+        {aboutHighlights.map((item) => (
+          <p class="border-t border-white/8 pt-4 text-sm leading-7 text-white/72" data-reveal-child>
+            {item}
+          </p>
+        ))}
+      </div>
+
+      <div class="grid gap-4 lg:grid-cols-2" data-reveal-child>
+        <div>
+          <p class="text-xs uppercase tracking-[0.2em] text-white/40">Experience Timeline</p>
+          <div class="mt-5 grid gap-4" data-stagger>
+            {experienceTimeline.map((item) => (
+              <article class="border-l border-white/10 pl-4" data-reveal-child>
+                <p class="text-xs uppercase tracking-[0.2em] text-white/35">{item.period}</p>
+                <h3 class="mt-2 text-base font-medium text-white">{item.title}</h3>
+                <p class="mt-2 text-sm leading-6 text-white/65">{item.detail}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <p class="text-xs uppercase tracking-[0.2em] text-white/40">Education</p>
+          <div class="mt-5 grid gap-4" data-stagger>
+            {educationEntries.map((item) => (
+              <article class="border-l border-white/10 pl-4" data-reveal-child>
+                <p class="text-xs uppercase tracking-[0.2em] text-white/35">{item.issuer}</p>
+                <h3 class="mt-2 text-base font-medium text-white">{item.title}</h3>
+                <p class="mt-2 text-sm leading-6 text-white/65">{item.detail}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-3 border-t border-white/8 pt-6" data-reveal-child>
+        <a
+          href={resumeDownload.href}
+          download
+          class="hover-depth rounded-full border border-cyan-400/25 bg-cyan-400/10 px-4 py-2.5 text-sm text-cyan-100 transition duration-300 hover:border-cyan-400/40 hover:bg-cyan-400/14"
+        >
+          {resumeDownload.label}
+        </a>
+        <a
+          href={profile.linkedinUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover-depth rounded-full border border-white/10 bg-white/[0.04] px-4 py-2.5 text-sm text-white/80 transition duration-300 hover:border-white/20 hover:text-white"
+        >
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </SectionShell>
+
+  <SectionShell
+    id="contact"
+    eyebrow="07 / Contact"
+    title="Let's build something meaningful"
+    intro="Open to projects, collaborations, and conversations around AI, automation, digital products, and business-focused systems."
+  >
+    <div class="max-w-4xl space-y-8" data-stagger>
+      <p class="text-lg leading-8 text-white/72" data-reveal-child>
+        If you are building something that needs clearer systems, stronger execution, or a more thoughtful connection between strategy and technology, I am always open to a good conversation.
+      </p>
+      <div class="grid gap-5 border-t border-white/8 pt-6 sm:grid-cols-2 lg:grid-cols-4" data-stagger>
+        {contactChannels.map((channel) => (
+          <a
+            href={channel.href}
+            target={channel.href.startsWith('http') ? '_blank' : undefined}
+            rel={channel.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            class="hover-depth space-y-2 rounded-[1.1rem] border border-transparent px-2 py-2"
+            data-reveal-child
+          >
+            <p class="text-xs uppercase tracking-[0.2em] text-white/40">{channel.label}</p>
+            <p class="text-base text-white">{channel.value}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </SectionShell>
+</BaseLayout>

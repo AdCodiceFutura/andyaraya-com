@@ -1,0 +1,95 @@
+---
+import { mindmapGraph } from '../data/knowledge';
+
+const domainNodes = [
+  { label: 'Creative Technology', x: 24, y: 22 },
+  { label: 'AI Automation', x: 51, y: 12 },
+  { label: 'Software Development', x: 76, y: 24 },
+  { label: 'Product Strategy', x: 82, y: 49 },
+  { label: 'Project Leadership', x: 73, y: 76 },
+  { label: 'Business Strategy', x: 49, y: 87 },
+  { label: 'Digital Marketing', x: 24, y: 76 },
+  { label: 'Financial Education', x: 16, y: 49 },
+  { label: 'Knowledge Management', x: 36, y: 60 }
+] as const;
+
+const conceptNodes = [
+  { label: 'Python', x: 12, y: 17 },
+  { label: 'SQL', x: 88, y: 20 },
+  { label: 'GitHub', x: 87, y: 83 },
+  { label: 'n8n', x: 54, y: 4 },
+  { label: 'RAG', x: 66, y: 9 },
+  { label: 'Prompt Engineering', x: 64, y: 95 },
+  { label: 'OpenAI', x: 41, y: 7 },
+  { label: 'Workflow Design', x: 8, y: 58 },
+  { label: 'Entrepreneurship', x: 18, y: 92 },
+  { label: 'SEO', x: 5, y: 40 },
+  { label: 'Meta Ads', x: 91, y: 42 },
+  { label: 'Google Ads', x: 91, y: 60 },
+  { label: 'Product Thinking', x: 79, y: 8 },
+  { label: 'Books', x: 33, y: 94 },
+  { label: 'Certifications', x: 58, y: 82 }
+] as const;
+---
+
+<div class="overflow-hidden rounded-[2rem] border border-white/8 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.08),transparent_45%),linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))] p-4 sm:p-6 lg:p-8" data-reveal>
+  <div class="mindmap-stage relative aspect-[1.45/1] min-h-[20rem] w-full overflow-hidden rounded-[1.6rem] border border-white/8 bg-[linear-gradient(180deg,rgba(5,5,7,0.92),rgba(8,10,14,0.94))] sm:aspect-[1.75/1] sm:min-h-[24rem] lg:aspect-[2.35/1] lg:min-h-[28rem]">
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(157,77,255,0.10),transparent_34%),radial-gradient(circle_at_20%_20%,rgba(34,211,238,0.06),transparent_18%),radial-gradient(circle_at_80%_80%,rgba(16,185,129,0.06),transparent_20%)]"></div>
+    <svg viewBox="0 0 100 100" class="absolute inset-0 h-full w-full">
+      {domainNodes.map((node) => (
+        <line
+          x1="50"
+          y1="50"
+          x2={node.x}
+          y2={node.y}
+          data-line
+          stroke="rgba(255,255,255,0.16)"
+          stroke-width="0.22"
+        />
+      ))}
+      {conceptNodes.map((node, index) => {
+        const domain = domainNodes[index % domainNodes.length];
+        return (
+          <line
+            x1={domain.x}
+            y1={domain.y}
+            x2={node.x}
+            y2={node.y}
+            data-line
+            stroke="rgba(34,211,238,0.16)"
+            stroke-width="0.18"
+          />
+        );
+      })}
+      {domainNodes.map((node) => (
+        <circle cx={node.x} cy={node.y} r="1.1" fill="rgba(34,211,238,0.95)" />
+      ))}
+      {conceptNodes.map((node) => (
+        <circle cx={node.x} cy={node.y} r="0.62" fill="rgba(255,255,255,0.9)" />
+      ))}
+      <circle cx="50" cy="50" r="2.1" fill="rgba(181,108,255,1)" />
+    </svg>
+
+    <div class="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10 bg-white/[0.05] px-4 py-2.5 text-sm text-white shadow-[0_0_40px_rgba(157,77,255,0.18)]">
+      {mindmapGraph.center}
+    </div>
+
+    {domainNodes.map((node, index) => (
+      <div
+        class="mindmap-node absolute z-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-400/18 bg-black/50 px-3 py-1.5 text-[0.72rem] tracking-[0.02em] text-white/82 backdrop-blur-sm"
+        style={`left:${node.x}%; top:${node.y}%; animation-delay:${index * 0.25}s;`}
+      >
+        {node.label}
+      </div>
+    ))}
+
+    {conceptNodes.map((node, index) => (
+      <div
+        class="mindmap-concept absolute z-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[0.64rem] text-white/62"
+        style={`left:${node.x}%; top:${node.y}%; animation-delay:${index * 0.15}s;`}
+      >
+        {node.label}
+      </div>
+    ))}
+  </div>
+</div>

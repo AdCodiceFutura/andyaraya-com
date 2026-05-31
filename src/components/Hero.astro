@@ -1,0 +1,35 @@
+---
+import { roles } from '../data/profile';
+import ValueEngine from './ValueEngine.astro';
+---
+
+<section id="home" class="relative overflow-hidden">
+  <div class="noise-layer pointer-events-none absolute inset-0 opacity-50"></div>
+  <div class="ambient-glow-purple glow-drift absolute left-[-8rem] top-10 h-[18rem] w-[18rem] rounded-full blur-3xl"></div>
+  <div class="ambient-glow-cyan glow-drift-delayed absolute right-[-6rem] top-24 h-[16rem] w-[16rem] rounded-full blur-3xl"></div>
+  <div class="mx-auto grid min-h-[82svh] w-full max-w-7xl gap-14 px-4 pb-24 pt-20 sm:px-6 sm:pb-32 sm:pt-24 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-center lg:gap-10 lg:px-8 lg:pb-36 lg:pt-28">
+    <div class="relative z-10 max-w-3xl space-y-10">
+      <div class="space-y-4 sm:space-y-5">
+        <h1 class="max-w-3xl text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-[4rem]">
+          {roles[0]}
+        </h1>
+        <div class="h-px w-16 bg-white/14"></div>
+        <p class="max-w-3xl text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-[4rem]">
+          {roles[1]}
+        </p>
+        <div class="h-px w-16 bg-white/14"></div>
+        <p class="max-w-3xl text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-[4rem]">
+          {roles[2]}
+        </p>
+      </div>
+
+      <p class="max-w-2xl text-base leading-8 text-white/72 sm:text-lg">
+        I bridge business strategy, software development and AI systems to build products, workflows and digital experiences that create measurable value.
+      </p>
+    </div>
+
+    <div class="relative min-h-[20rem] overflow-hidden lg:min-h-[34rem]" data-reveal>
+      <ValueEngine />
+    </div>
+  </div>
+</section>

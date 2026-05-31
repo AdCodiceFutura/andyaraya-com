@@ -1,0 +1,42 @@
+---
+import SiteHeader from '../components/SiteHeader.astro';
+import '../styles/global.css';
+
+const {
+  title = 'Andy Araya',
+  description = 'Creative Technologist, AI Systems Builder, and Digital Product Strategist.'
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#050507" />
+    <link rel="icon" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body class="bg-bg text-white antialiased">
+    <a
+      href="#home"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:text-black"
+    >
+      Skip to content
+    </a>
+    <SiteHeader />
+    <main>
+      <slot />
+    </main>
+    <footer class="border-t border-white/6">
+      <div class="mx-auto flex w-full max-w-7xl flex-col gap-3 px-4 py-8 text-sm text-white/50 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+        <p>Andy Araya</p>
+        <p>Built with Astro, TypeScript, Tailwind CSS, and MDX.</p>
+      </div>
+    </footer>
+    <script type="module">
+      import "../scripts/motion.ts";
+    </script>
+  </body>
+</html>
