@@ -1,95 +1,386 @@
 ---
 import { mindmapGraph } from '../data/knowledge';
 
-const domainNodes = [
-  { label: 'Creative Technology', x: 24, y: 22 },
-  { label: 'AI Automation', x: 51, y: 12 },
-  { label: 'Software Development', x: 76, y: 24 },
-  { label: 'Product Strategy', x: 82, y: 49 },
-  { label: 'Project Leadership', x: 73, y: 76 },
-  { label: 'Business Strategy', x: 49, y: 87 },
-  { label: 'Digital Marketing', x: 24, y: 76 },
-  { label: 'Financial Education', x: 16, y: 49 },
-  { label: 'Knowledge Management', x: 36, y: 60 }
-] as const;
-
-const conceptNodes = [
-  { label: 'Python', x: 12, y: 17 },
-  { label: 'SQL', x: 88, y: 20 },
-  { label: 'GitHub', x: 87, y: 83 },
-  { label: 'n8n', x: 54, y: 4 },
-  { label: 'RAG', x: 66, y: 9 },
-  { label: 'Prompt Engineering', x: 64, y: 95 },
-  { label: 'OpenAI', x: 41, y: 7 },
-  { label: 'Workflow Design', x: 8, y: 58 },
-  { label: 'Entrepreneurship', x: 18, y: 92 },
-  { label: 'SEO', x: 5, y: 40 },
-  { label: 'Meta Ads', x: 91, y: 42 },
-  { label: 'Google Ads', x: 91, y: 60 },
-  { label: 'Product Thinking', x: 79, y: 8 },
-  { label: 'Books', x: 33, y: 94 },
-  { label: 'Certifications', x: 58, y: 82 }
-] as const;
+const graphPayload = {
+  center: mindmapGraph.center,
+  categories: mindmapGraph.categories,
+  relations: mindmapGraph.relations
+};
 ---
 
-<div class="overflow-hidden rounded-[2rem] border border-white/8 bg-[radial-gradient(circle_at_center,rgba(34,211,238,0.08),transparent_45%),linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))] p-4 sm:p-6 lg:p-8" data-reveal>
-  <div class="mindmap-stage relative aspect-[1.45/1] min-h-[20rem] w-full overflow-hidden rounded-[1.6rem] border border-white/8 bg-[linear-gradient(180deg,rgba(5,5,7,0.92),rgba(8,10,14,0.94))] sm:aspect-[1.75/1] sm:min-h-[24rem] lg:aspect-[2.35/1] lg:min-h-[28rem]">
-    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(157,77,255,0.10),transparent_34%),radial-gradient(circle_at_20%_20%,rgba(34,211,238,0.06),transparent_18%),radial-gradient(circle_at_80%_80%,rgba(16,185,129,0.06),transparent_20%)]"></div>
-    <svg viewBox="0 0 100 100" class="absolute inset-0 h-full w-full">
-      {domainNodes.map((node) => (
-        <line
-          x1="50"
-          y1="50"
-          x2={node.x}
-          y2={node.y}
-          data-line
-          stroke="rgba(255,255,255,0.16)"
-          stroke-width="0.22"
-        />
-      ))}
-      {conceptNodes.map((node, index) => {
-        const domain = domainNodes[index % domainNodes.length];
-        return (
-          <line
-            x1={domain.x}
-            y1={domain.y}
-            x2={node.x}
-            y2={node.y}
-            data-line
-            stroke="rgba(34,211,238,0.16)"
-            stroke-width="0.18"
-          />
-        );
-      })}
-      {domainNodes.map((node) => (
-        <circle cx={node.x} cy={node.y} r="1.1" fill="rgba(34,211,238,0.95)" />
-      ))}
-      {conceptNodes.map((node) => (
-        <circle cx={node.x} cy={node.y} r="0.62" fill="rgba(255,255,255,0.9)" />
-      ))}
-      <circle cx="50" cy="50" r="2.1" fill="rgba(181,108,255,1)" />
-    </svg>
-
-    <div class="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10 bg-white/[0.05] px-4 py-2.5 text-sm text-white shadow-[0_0_40px_rgba(157,77,255,0.18)]">
-      {mindmapGraph.center}
+<div class="knowledge-graph-shell glass-surface rounded-[2rem] p-4 sm:p-6 lg:p-8" data-reveal>
+  <div class="knowledge-graph-stage glass-stage relative min-h-[34rem] overflow-hidden rounded-[1.6rem] sm:min-h-[38rem] lg:min-h-[42rem]">
+    <div class="knowledge-graph-topbar">
+      <div class="knowledge-graph-window-dots" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <p>Graph view</p>
+      <div class="knowledge-graph-actions" aria-hidden="true">
+        <span></span>
+        <span></span>
+      </div>
     </div>
 
-    {domainNodes.map((node, index) => (
-      <div
-        class="mindmap-node absolute z-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-400/18 bg-black/50 px-3 py-1.5 text-[0.72rem] tracking-[0.02em] text-white/82 backdrop-blur-sm"
-        style={`left:${node.x}%; top:${node.y}%; animation-delay:${index * 0.25}s;`}
-      >
-        {node.label}
-      </div>
-    ))}
+    <canvas class="knowledge-graph-canvas" aria-label="Andy Araya knowledge graph"></canvas>
 
-    {conceptNodes.map((node, index) => (
-      <div
-        class="mindmap-concept absolute z-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[0.64rem] text-white/62"
-        style={`left:${node.x}%; top:${node.y}%; animation-delay:${index * 0.15}s;`}
-      >
-        {node.label}
-      </div>
-    ))}
+    <div class="knowledge-graph-hud" aria-hidden="true">
+      <span>knowledge vault</span>
+      <span>nodes / links / clusters</span>
+    </div>
+
+    <script type="application/json" data-knowledge-graph set:html={JSON.stringify(graphPayload)} />
   </div>
 </div>
+
+<script is:inline>
+  const accentColors = {
+    cyan: '#62d7ee',
+    purple: '#9d6cff',
+    green: '#70d6a6',
+    amber: '#e7a43d',
+    rose: '#e75f78'
+  };
+
+  const stages = document.querySelectorAll('.knowledge-graph-stage');
+
+  stages.forEach((stage) => {
+    const canvas = stage.querySelector('.knowledge-graph-canvas');
+    const dataNode = stage.querySelector('[data-knowledge-graph]');
+    if (!canvas || !dataNode) return;
+
+    const ctx = canvas.getContext('2d');
+    const graph = JSON.parse(dataNode.textContent || '{}');
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let width = 0;
+    let height = 0;
+    let hoveredNode = null;
+    let settled = false;
+    let frame = 0;
+
+    const nodes = [];
+    const links = [];
+    const nodeById = new Map();
+    const neighbors = new Map();
+
+    const addNode = (node) => {
+      const created = {
+        id: node.id,
+        label: node.label,
+        type: node.type || 'item',
+        accent: node.accent || 'purple',
+        px: node.x,
+        py: node.y,
+        x: 0,
+        y: 0,
+        vx: 0,
+        vy: 0,
+        radius: node.radius || 3,
+        mass: node.mass || 1
+      };
+      nodes.push(created);
+      nodeById.set(created.id, created);
+      neighbors.set(created.id, new Set([created.id]));
+      return created;
+    };
+
+    addNode({
+      ...graph.center,
+      type: 'center',
+      accent: 'purple',
+      radius: 8,
+      mass: 3
+    });
+
+    graph.categories.forEach((category) => {
+      addNode({
+        id: category.id,
+        label: category.label,
+        x: category.x,
+        y: category.y,
+        accent: category.accent,
+        type: 'category',
+        radius: 5.5,
+        mass: 2
+      });
+
+      category.items.forEach((item) => {
+        addNode({
+          ...item,
+          accent: category.accent,
+          type: 'item',
+          radius: 2.8,
+          mass: 1
+        });
+      });
+    });
+
+    graph.relations.forEach((relation) => {
+      const source = nodeById.get(relation.from);
+      const target = nodeById.get(relation.to);
+      if (!source || !target) return;
+
+      links.push({
+        source,
+        target,
+        kind: relation.kind
+      });
+      neighbors.get(source.id).add(target.id);
+      neighbors.get(target.id).add(source.id);
+    });
+
+    const resize = () => {
+      const rect = stage.getBoundingClientRect();
+      width = Math.max(320, Math.floor(rect.width));
+      height = Math.max(320, Math.floor(rect.height));
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      nodes.forEach((node) => {
+        node.x = (node.px / 100) * width;
+        node.y = (node.py / 100) * height;
+        node.vx = 0;
+        node.vy = 0;
+      });
+
+      settled = false;
+      frame = 0;
+      requestAnimationFrame(draw);
+    };
+
+    const tick = () => {
+      if (settled) return;
+
+      for (let i = 0; i < nodes.length; i += 1) {
+        const a = nodes[i];
+        for (let j = i + 1; j < nodes.length; j += 1) {
+          const b = nodes[j];
+          const dx = b.x - a.x || 0.01;
+          const dy = b.y - a.y || 0.01;
+          const distanceSq = dx * dx + dy * dy;
+          const distance = Math.sqrt(distanceSq);
+          const force = Math.min(0.045, 80 / distanceSq);
+          const fx = (dx / distance) * force;
+          const fy = (dy / distance) * force;
+          a.vx -= fx / a.mass;
+          a.vy -= fy / a.mass;
+          b.vx += fx / b.mass;
+          b.vy += fy / b.mass;
+        }
+      }
+
+      links.forEach((link) => {
+        const dx = link.target.x - link.source.x;
+        const dy = link.target.y - link.source.y;
+        const distance = Math.sqrt(dx * dx + dy * dy) || 1;
+        const targetDistance = link.kind === 'primary' ? 145 : link.kind === 'bridge' ? 118 : 82;
+        const strength = link.kind === 'primary' ? 0.009 : link.kind === 'bridge' ? 0.006 : 0.004;
+        const force = (distance - targetDistance) * strength;
+        const fx = (dx / distance) * force;
+        const fy = (dy / distance) * force;
+        link.source.vx += fx / link.source.mass;
+        link.source.vy += fy / link.source.mass;
+        link.target.vx -= fx / link.target.mass;
+        link.target.vy -= fy / link.target.mass;
+      });
+
+      let energy = 0;
+      nodes.forEach((node) => {
+        const anchorX = (node.px / 100) * width;
+        const anchorY = (node.py / 100) * height;
+        node.vx += (anchorX - node.x) * 0.003;
+        node.vy += (anchorY - node.y) * 0.003;
+        node.vx *= 0.72;
+        node.vy *= 0.72;
+        node.x += node.vx;
+        node.y += node.vy;
+        node.x = Math.max(34, Math.min(width - 34, node.x));
+        node.y = Math.max(34, Math.min(height - 34, node.y));
+        energy += Math.abs(node.vx) + Math.abs(node.vy);
+      });
+
+      frame += 1;
+      if (frame > 180 || energy < 0.04) settled = true;
+    };
+
+    const isRelated = (node) => {
+      if (!hoveredNode) return true;
+      return neighbors.get(hoveredNode.id)?.has(node.id);
+    };
+
+    const drawLabel = (node, alpha) => {
+      const color = node.type === 'item' ? `rgba(220,225,230,${alpha * 0.68})` : `rgba(245,247,250,${alpha * 0.86})`;
+      ctx.font = node.type === 'item' ? '600 10px Inter, system-ui, sans-serif' : '700 12px Inter, system-ui, sans-serif';
+      ctx.fillStyle = color;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      ctx.fillText(node.label, node.x, node.y + node.radius + 7);
+    };
+
+    const draw = () => {
+      tick();
+
+      ctx.clearRect(0, 0, width, height);
+      const gradient = ctx.createRadialGradient(width * 0.52, height * 0.5, 10, width * 0.52, height * 0.5, Math.max(width, height) * 0.68);
+      gradient.addColorStop(0, 'rgba(157,77,255,0.12)');
+      gradient.addColorStop(0.45, 'rgba(20,28,36,0.18)');
+      gradient.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, width, height);
+
+      links.forEach((link) => {
+        const related = !hoveredNode || link.source.id === hoveredNode.id || link.target.id === hoveredNode.id;
+        const alpha = related ? 0.24 : 0.045;
+        const color = link.kind === 'bridge' ? '157, 108, 255' : link.kind === 'primary' ? '235, 238, 242' : '125, 140, 155';
+        ctx.strokeStyle = `rgba(${color},${alpha})`;
+        ctx.lineWidth = related ? (link.kind === 'primary' ? 1.2 : 0.85) : 0.55;
+        ctx.beginPath();
+        ctx.moveTo(link.source.x, link.source.y);
+        ctx.lineTo(link.target.x, link.target.y);
+        ctx.stroke();
+      });
+
+      nodes.forEach((node) => {
+        const related = isRelated(node);
+        const alpha = related ? 1 : 0.18;
+        const color = accentColors[node.accent] || '#d8dbe0';
+        const radius = hoveredNode?.id === node.id ? node.radius + 2.2 : node.radius;
+
+        ctx.beginPath();
+        ctx.fillStyle = node.type === 'center' ? `rgba(190,135,255,${alpha})` : `${color}${Math.round(alpha * 255).toString(16).padStart(2, '0')}`;
+        ctx.arc(node.x, node.y, radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (node.type !== 'item' || related || hoveredNode?.id === node.id) {
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(255,255,255,${0.18 * alpha})`;
+          ctx.lineWidth = 1;
+          ctx.arc(node.x, node.y, radius + 4, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+
+        if (node.type !== 'item' || related || !hoveredNode) {
+          drawLabel(node, alpha);
+        }
+      });
+
+      if (!settled) requestAnimationFrame(draw);
+    };
+
+    const updateHover = (event) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      let closest = null;
+      let closestDistance = 18;
+
+      nodes.forEach((node) => {
+        const dx = node.x - x;
+        const dy = node.y - y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < closestDistance) {
+          closest = node;
+          closestDistance = distance;
+        }
+      });
+
+      if (closest !== hoveredNode) {
+        hoveredNode = closest;
+        canvas.style.cursor = closest ? 'pointer' : 'default';
+        draw();
+      }
+    };
+
+    canvas.addEventListener('pointermove', updateHover);
+    canvas.addEventListener('pointerleave', () => {
+      hoveredNode = null;
+      canvas.style.cursor = 'default';
+      draw();
+    });
+
+    const observer = new ResizeObserver(resize);
+    observer.observe(stage);
+  });
+</script>
+
+<style>
+  .knowledge-graph-stage {
+    background:
+      radial-gradient(circle at 50% 48%, rgba(157, 77, 255, 0.08), transparent 32%),
+      linear-gradient(180deg, rgba(24, 27, 34, 0.88), rgba(9, 11, 15, 0.96));
+  }
+
+  .knowledge-graph-topbar {
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    height: 3.4rem;
+    padding: 0 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012));
+    color: rgba(255,255,255,0.72);
+    font-size: 0.84rem;
+    font-weight: 650;
+  }
+
+  .knowledge-graph-window-dots,
+  .knowledge-graph-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .knowledge-graph-window-dots span,
+  .knowledge-graph-actions span {
+    width: 0.48rem;
+    height: 0.48rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.22);
+  }
+
+  .knowledge-graph-actions {
+    justify-self: end;
+  }
+
+  .knowledge-graph-actions span {
+    width: 1rem;
+    height: 1rem;
+    border: 1px solid rgba(255,255,255,0.18);
+    background: transparent;
+  }
+
+  .knowledge-graph-canvas {
+    position: absolute;
+    inset: 3.4rem 0 0;
+    display: block;
+    width: 100%;
+    height: calc(100% - 3.4rem);
+  }
+
+  .knowledge-graph-hud {
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    z-index: 2;
+    display: flex;
+    gap: 0.75rem;
+    color: rgba(255,255,255,0.34);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    pointer-events: none;
+  }
+
+  @media (max-width: 640px) {
+    .knowledge-graph-stage {
+      min-height: 34rem;
+    }
+  }
+</style>
