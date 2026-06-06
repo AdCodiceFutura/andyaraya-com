@@ -16,6 +16,8 @@ import {
 } from '../data/about';
 import { contactChannels } from '../data/contact';
 import { profile } from '../data/profile';
+
+const personalStoryParagraphs = personalStory.split('\n\n');
 ---
 
 <BaseLayout
@@ -27,8 +29,8 @@ import { profile } from '../data/profile';
   <SectionShell
     id="credentials"
     eyebrow="01 / Credentials"
-    title="Verified learning signals with practical weight"
-    intro="A focused set of public credentials that support the technical and strategic direction of the work."
+    title="Verified foundations for building modern systems"
+    intro="Selected credentials supporting the intersection of business strategy, software development, AI systems and digital product creation."
   >
     <CredentialsSection />
   </SectionShell>
@@ -36,8 +38,8 @@ import { profile } from '../data/profile';
   <SectionShell
     id="mindmap"
     eyebrow="02 / Mindmap"
-    title="A knowledge map of the domains, tools, and ideas I connect"
-    intro="A structured SVG placeholder for a future interactive mindmap. The goal is to show how strategy, software, automation, business, and learning connect in practice."
+    title="The architecture of my thinking"
+    intro="Every product, workflow and automation starts with a network of connected ideas. This map reveals the disciplines and concepts that influence my work."
   >
     <MindmapGraph />
   </SectionShell>
@@ -45,8 +47,8 @@ import { profile } from '../data/profile';
   <SectionShell
     id="projects"
     eyebrow="03 / Projects"
-    title="Three featured project directions, framed more like case studies"
-    intro="Each concept is grounded in a real operational problem, an intentional system design approach, and a business-oriented outcome."
+    title="Systems that move the business forward"
+    intro="Selected projects showing how strategic thinking, software development and AI can transform operational challenges into measurable business outcomes."
   >
     <ProjectsSection />
   </SectionShell>
@@ -54,8 +56,8 @@ import { profile } from '../data/profile';
   <SectionShell
     id="books"
     eyebrow="04 / Books"
-    title="A reading trail that shapes how I think"
-    intro="Business, finance, entrepreneurship, product, and personal growth all feed the way I approach systems and decision-making."
+    title="A library of ideas behind the work that compound over time"
+    intro="An ongoing collection of books that continue to shape how I think about strategy, systems and long-term value creation."
   >
     <BooksCarousel />
   </SectionShell>
@@ -63,22 +65,23 @@ import { profile } from '../data/profile';
   <SectionShell
     id="blog"
     eyebrow="05 / Blog"
-    title="A compact editorial layer for automation, knowledge, and product thinking"
-    intro="Three latest topics for now, positioned as the beginning of a more thoughtful long-form writing system."
+    title="Like poetry, but for geeks"
+    intro="Thoughts on AI, software, automation and business systems for curious builders and lifelong learners."
   >
     <BlogSection />
   </SectionShell>
 
   <SectionShell
     id="about"
-    eyebrow="06 / About Me"
-    title="A business-minded creative technologist"
-    intro="Grounded experience across creative leadership, digital strategy, formal technical training, and two recent years of deeper work in software and AI-enabled systems."
+    eyebrow="06 / Why I think this way"
+    title="Connecting the dots"
+    intro="A multidisciplinary path through design, business, technology and systems thinking."
   >
     <div class="space-y-10" data-stagger>
       <article class="max-w-4xl" data-reveal-child>
-        <p class="text-xs uppercase tracking-[0.2em] text-white/40">Personal Story</p>
-        <p class="mt-4 max-w-3xl text-sm leading-7 text-white/72 sm:text-base">{personalStory}</p>
+        <div class="mt-4 max-w-3xl space-y-5 text-sm leading-7 text-white/72 sm:text-base">
+          {personalStoryParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
       </article>
 
       <div class="grid gap-3 sm:grid-cols-3" data-stagger>
@@ -140,13 +143,14 @@ import { profile } from '../data/profile';
   <SectionShell
     id="contact"
     eyebrow="07 / Contact"
-    title="Let's build something meaningful"
-    intro="Open to projects, collaborations, and conversations around AI, automation, digital products, and business-focused systems."
+    title="Building value from the inside"
+    intro="Seeking opportunities to contribute, lead and help organizations move faster through better systems and technology."
   >
     <div class="max-w-4xl space-y-8" data-stagger>
-      <p class="text-lg leading-8 text-white/72" data-reveal-child>
-        If you are building something that needs clearer systems, stronger execution, or a more thoughtful connection between strategy and technology, I am always open to a good conversation.
-      </p>
+      <div class="space-y-5 text-lg leading-8 text-white/72" data-reveal-child>
+        <p>My strongest work happens when strategy, execution and technology are aligned around a shared goal.</p>
+        <p>I am interested in joining teams that value systems thinking, continuous improvement and practical innovation.</p>
+      </div>
       <div class="grid gap-5 border-t border-white/8 pt-6 sm:grid-cols-2 lg:grid-cols-4" data-stagger>
         {contactChannels.map((channel) => (
           <a

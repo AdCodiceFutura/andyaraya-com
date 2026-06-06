@@ -4,7 +4,11 @@ export const aboutHighlights = [
   'Experience with multinational clients including Unilever and Essity.'
 ] as const;
 
-export const personalStory = `I work at the intersection of creative direction, project leadership, software development, automation, and digital product strategy. Over more than a decade in creative and digital roles, I have learned to connect business goals, team execution, and practical technology. In the past two years, I have expanded that work into AI automation, RAG-based agents, AI-assisted workflows, and custom internal tools designed to solve real operational problems.`;
+export const personalStory = `I did not start in software.
+
+My background spans creative leadership, branding, digital strategy, project management and business-oriented problem solving. Over time, I became increasingly interested in the systems behind products, operations and decision-making.
+
+That curiosity led me deeper into software development, automation and artificial intelligence. Today, I combine creative thinking, technical execution and business strategy to design systems that reduce friction, improve efficiency and create measurable value.`;
 
 export const experienceTimeline = [
   {
