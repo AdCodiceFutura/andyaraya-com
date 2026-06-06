@@ -8,27 +8,9 @@ const graphPayload = {
 };
 ---
 
-<div class="knowledge-graph-shell glass-surface rounded-[2rem] p-4 sm:p-6 lg:p-8" data-reveal>
+<div class="knowledge-graph-shell glass-surface rounded-[2rem] p-1.5" data-reveal>
   <div class="knowledge-graph-stage glass-stage relative min-h-[34rem] overflow-hidden rounded-[1.6rem] sm:min-h-[38rem] lg:min-h-[42rem]">
-    <div class="knowledge-graph-topbar">
-      <div class="knowledge-graph-window-dots" aria-hidden="true">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <p>Graph view</p>
-      <div class="knowledge-graph-actions" aria-hidden="true">
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-
     <canvas class="knowledge-graph-canvas" aria-label="Andy Araya knowledge graph"></canvas>
-
-    <div class="knowledge-graph-hud" aria-hidden="true">
-      <span>knowledge vault</span>
-      <span>nodes / links / clusters</span>
-    </div>
 
     <script type="application/json" data-knowledge-graph set:html={JSON.stringify(graphPayload)} />
   </div>
@@ -142,7 +124,7 @@ const graphPayload = {
 
       nodes.forEach((node) => {
         node.x = (node.px / 100) * width;
-        node.y = (node.py / 100) * height;
+        node.y = 28 + (node.py / 100) * (height - 76);
         node.vx = 0;
         node.vy = 0;
       });
@@ -191,7 +173,7 @@ const graphPayload = {
       let energy = 0;
       nodes.forEach((node) => {
         const anchorX = (node.px / 100) * width;
-        const anchorY = (node.py / 100) * height;
+        const anchorY = 28 + (node.py / 100) * (height - 76);
         node.vx += (anchorX - node.x) * 0.003;
         node.vy += (anchorY - node.y) * 0.003;
         node.vx *= 0.72;
@@ -199,7 +181,7 @@ const graphPayload = {
         node.x += node.vx;
         node.y += node.vy;
         node.x = Math.max(34, Math.min(width - 34, node.x));
-        node.y = Math.max(34, Math.min(height - 34, node.y));
+        node.y = Math.max(34, Math.min(height - 54, node.y));
         energy += Math.abs(node.vx) + Math.abs(node.vy);
       });
 
@@ -314,68 +296,12 @@ const graphPayload = {
       linear-gradient(180deg, rgba(24, 27, 34, 0.88), rgba(9, 11, 15, 0.96));
   }
 
-  .knowledge-graph-topbar {
-    position: absolute;
-    inset: 0 0 auto;
-    z-index: 2;
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    height: 3.4rem;
-    padding: 0 1rem;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012));
-    color: rgba(255,255,255,0.72);
-    font-size: 0.84rem;
-    font-weight: 650;
-  }
-
-  .knowledge-graph-window-dots,
-  .knowledge-graph-actions {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-  }
-
-  .knowledge-graph-window-dots span,
-  .knowledge-graph-actions span {
-    width: 0.48rem;
-    height: 0.48rem;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.22);
-  }
-
-  .knowledge-graph-actions {
-    justify-self: end;
-  }
-
-  .knowledge-graph-actions span {
-    width: 1rem;
-    height: 1rem;
-    border: 1px solid rgba(255,255,255,0.18);
-    background: transparent;
-  }
-
   .knowledge-graph-canvas {
     position: absolute;
-    inset: 3.4rem 0 0;
+    inset: 0;
     display: block;
     width: 100%;
-    height: calc(100% - 3.4rem);
-  }
-
-  .knowledge-graph-hud {
-    position: absolute;
-    left: 1rem;
-    bottom: 1rem;
-    z-index: 2;
-    display: flex;
-    gap: 0.75rem;
-    color: rgba(255,255,255,0.34);
-    font-size: 0.62rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    pointer-events: none;
+    height: 100%;
   }
 
   @media (max-width: 640px) {

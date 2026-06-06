@@ -1,0 +1,130 @@
+---
+const { variant = 'default' } = Astro.props;
+
+const inputSignals = [
+  { label: 'Data', icon: 'database' },
+  { label: 'Processes', icon: 'gear' },
+  { label: 'Automation', icon: 'workflow' },
+  { label: 'AI', icon: 'brain' },
+  { label: 'Strategy', icon: 'target' }
+] as const;
+
+const valueMarks = [
+  { left: '58%', bottom: '19%', scale: '0.82', delay: '0s' },
+  { left: '66%', bottom: '22%', scale: '0.98', delay: '0.45s' },
+  { left: '74%', bottom: '25%', scale: '1.12', delay: '0.9s' },
+  { left: '82%', bottom: '28%', scale: '1.34', delay: '1.35s' },
+  { left: '90%', bottom: '31%', scale: '1.68', delay: '1.8s' }
+] as const;
+---
+
+<div class:list={['value-machine glass-surface relative overflow-hidden rounded-[2rem] p-[6px]', variant === 'hero-wide' && 'value-machine-hero']}>
+  <div class="value-machine-stage glass-stage relative min-h-[21rem] overflow-hidden rounded-[1.7rem] sm:min-h-[26rem] lg:min-h-[34rem]">
+    <div class="value-machine-backdrop"></div>
+
+    <p class="value-machine-kicker">Digital systems that create measurable business value</p>
+
+    <div class="value-business-tag">Your business</div>
+    <div class="value-growth-tag">More value<br />More growth</div>
+
+    <div class="value-input-row" aria-hidden="true">
+      {inputSignals.map((signal, index) => (
+        <div class="value-signal" style={`--signal-delay:${index * 0.22}s;`}>
+          <div class:list={[`value-signal-icon value-signal-icon-${signal.icon}`]}></div>
+          <span>{signal.label}</span>
+        </div>
+      ))}
+    </div>
+
+    <svg viewBox="0 0 1000 620" class="value-machine-svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="valueCurveStroke" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="rgba(76, 226, 255, 0.15)" />
+          <stop offset="42%" stop-color="rgba(82, 240, 255, 0.82)" />
+          <stop offset="100%" stop-color="rgba(136, 255, 249, 0.95)" />
+        </linearGradient>
+        <linearGradient id="signalStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="rgba(157,77,255,0.85)" />
+          <stop offset="100%" stop-color="rgba(117,217,255,0.75)" />
+        </linearGradient>
+        <filter id="curveGlow" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="5" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+
+      <path class="value-signal-line value-signal-line-1" d="M334 126 C334 194, 354 212, 426 228 C468 238, 492 258, 506 312" />
+      <path class="value-signal-line value-signal-line-2" d="M426 126 C426 202, 444 224, 488 244 C506 252, 520 276, 526 312" />
+      <path class="value-signal-line value-signal-line-3" d="M518 126 C518 204, 518 248, 518 312" />
+      <path class="value-signal-line value-signal-line-4" d="M610 126 C610 202, 594 224, 550 244 C532 252, 520 276, 514 312" />
+      <path class="value-signal-line value-signal-line-5" d="M702 126 C702 194, 682 212, 610 228 C568 238, 544 258, 530 312" />
+
+      <circle class="value-signal-particle value-signal-particle-1" cx="0" cy="0" r="4" />
+      <circle class="value-signal-particle value-signal-particle-2" cx="0" cy="0" r="4" />
+      <circle class="value-signal-particle value-signal-particle-3" cx="0" cy="0" r="4" />
+      <circle class="value-signal-particle value-signal-particle-4" cx="0" cy="0" r="4" />
+      <circle class="value-signal-particle value-signal-particle-5" cx="0" cy="0" r="4" />
+
+      <path class="value-growth-curve" d="M560 470 C650 454, 728 430, 810 372 C862 334, 906 286, 952 224" />
+      <path class="value-growth-curve-glow" d="M560 470 C650 454, 728 430, 810 372 C862 334, 906 286, 952 224" />
+      <path class="value-growth-arrow" d="M934 228 L952 224 L944 206" />
+    </svg>
+
+    <div class="value-building" aria-hidden="true">
+      <div class="value-building-tower"></div>
+      <div class="value-building-wing value-building-wing-left"></div>
+      <div class="value-building-wing value-building-wing-right"></div>
+      <div class="value-building-entry"></div>
+      <div class="value-building-base"></div>
+    </div>
+
+    <div class="value-input-conveyor" aria-hidden="true">
+      <div class="value-belt value-belt-left"></div>
+      <div class="value-roller-track value-roller-track-left"></div>
+      <div class="value-block value-block-1"></div>
+      <div class="value-block value-block-2"></div>
+      <div class="value-block value-block-3"></div>
+      <div class="value-block value-block-4"></div>
+    </div>
+
+    <div class="value-core-machine" aria-hidden="true">
+      <div class="value-machine-top"></div>
+      <div class="value-machine-side value-machine-side-left">
+        <span>&lt;/&gt;</span>
+      </div>
+      <div class="value-machine-side value-machine-side-right">
+        <span>◫</span>
+      </div>
+      <div class="value-machine-front">
+        <div class="value-machine-core"></div>
+      </div>
+      <div class="value-machine-plinth"></div>
+    </div>
+
+    <div class="value-output-conveyor" aria-hidden="true">
+      <div class="value-belt value-belt-right"></div>
+      <div class="value-roller-track value-roller-track-right"></div>
+
+      {valueMarks.map((mark, index) => (
+        <div
+          class={`value-output-mark value-output-mark-${index + 1}`}
+          style={`left:58%; bottom:${mark.bottom}; --value-scale:${mark.scale}; --value-delay:${mark.delay};`}
+        >
+          $
+        </div>
+      ))}
+
+      <div class="value-growth-bars">
+        <span style="height: 18%;"></span>
+        <span style="height: 28%;"></span>
+        <span style="height: 40%;"></span>
+        <span style="height: 56%;"></span>
+      </div>
+    </div>
+
+    <p class="value-machine-caption">Digital product<br />Code<br />Intelligent system</p>
+  </div>
+</div>
