@@ -1,6 +1,6 @@
 export const aboutHighlights = [
   '10+ years leading creative and digital projects.',
-  'Project Director at PROSESO Estudio de Diseno S.A. since 2021.',
+  'Project Director at PROSESO Estudio de Diseño S.A. since 2021.',
   'Experience with multinational clients including Unilever and Essity.'
 ] as const;
 
@@ -13,7 +13,7 @@ That curiosity led me deeper into software development, automation and artificia
 export const experienceTimeline = [
   {
     period: '2021 - Present',
-    title: 'Project Director - PROSESO Estudio de Diseno S.A.',
+    title: 'Project Director - PROSESO Estudio de Diseño S.A.',
     detail: 'Leading creative and digital projects with a stronger focus on systems, business outcomes, and operational clarity.'
   },
   {
@@ -23,7 +23,7 @@ export const experienceTimeline = [
   },
   {
     period: '2013 - 2017',
-    title: 'Senior Graphic Designer - SAGA Estudio de Diseno S.A.',
+    title: 'Senior Graphic Designer - SAGA Estudio de Diseño S.A.',
     detail: 'Built a foundation in design systems, brand communication, and client-facing delivery.'
   },
   {

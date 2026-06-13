@@ -12,6 +12,29 @@ import { profile } from '../data/profile';
 
 const personalStoryParagraphs = personalStory.split('\n\n');
 const educationBadge = educationEntries[0];
+const contactIcons = {
+  Email: {
+    paths: ['M4 6.5h16v11H4z', 'm4.5 7 7.5 6 7.5-6', 'm4.5 17 5.4-5.1', 'm19.5 17-5.4-5.1']
+  },
+  Phone: {
+    paths: [
+      'M7.7 4.5 10 8.9l-1.35 1.35c.9 1.9 2.25 3.25 4.15 4.15L14.1 13l4.45 2.3c.3.15.48.47.42.8-.18 1.18-.62 2.2-1.32 3.06-.36.44-.92.66-1.48.6C9.5 19.05 4.95 14.5 4.24 7.83c-.06-.56.16-1.12.6-1.48.86-.7 1.88-1.14 3.06-1.32.33-.06.65.12.8.42Z'
+    ]
+  },
+  Location: {
+    paths: [
+      'M12 21s6-5.34 6-10.5A6 6 0 0 0 6 10.5C6 15.66 12 21 12 21Z',
+      'M12 13.1a2.6 2.6 0 1 0 0-5.2 2.6 2.6 0 0 0 0 5.2Z'
+    ]
+  },
+  LinkedIn: {
+    paths: [
+      'M6.2 9.9h3.2v9.1H6.2z',
+      'M7.8 8.5a1.75 1.75 0 1 0 0-3.5 1.75 1.75 0 0 0 0 3.5Z',
+      'M11.2 9.9h3.05v1.24c.45-.72 1.35-1.44 2.78-1.44 2.15 0 3.77 1.4 3.77 4.42V19h-3.18v-4.46c0-1.2-.43-2.02-1.5-2.02-.82 0-1.3.55-1.52 1.08-.08.2-.1.47-.1.73V19h-3.3z'
+    ]
+  }
+} as const;
 const aboutHighlightBadges = [
   {
     mark: 'ED',
@@ -133,25 +156,33 @@ const aboutHighlightBadges = [
   <SectionShell
     id="contact"
     eyebrow="05 / Contact"
-    title="Building value from the inside"
+    title="Let's build together"
     intro="Seeking opportunities to contribute, lead and help organizations move faster through better systems and technology."
   >
-    <div class="max-w-4xl space-y-8" data-stagger>
+    <div class="max-w-6xl space-y-8" data-stagger>
       <div class="space-y-5 text-lg leading-8 text-white/72" data-reveal-child>
         <p>My strongest work happens when strategy, execution and technology are aligned around a shared goal.</p>
         <p>I am interested in joining teams that value systems thinking, continuous improvement and practical innovation.</p>
       </div>
-      <div class="grid gap-5 border-t border-white/8 pt-6 sm:grid-cols-2 lg:grid-cols-4" data-stagger>
+      <div class="contact-grid grid gap-5 border-t border-white/8 pt-6 sm:grid-cols-2 lg:grid-cols-4" data-stagger>
         {contactChannels.map((channel) => (
           <a
             href={channel.href}
             target={channel.href.startsWith('http') ? '_blank' : undefined}
             rel={channel.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-            class="glass-card hover-depth space-y-2 rounded-[1.1rem] p-4"
+            class="contact-card glass-card hover-depth rounded-[1.1rem] p-4"
             data-reveal-child
           >
-            <p class="text-xs uppercase tracking-[0.2em] text-white/40">{channel.label}</p>
-            <p class="text-base text-white">{channel.value}</p>
+            <span class="contact-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                {contactIcons[channel.label].paths.map((path) => (
+                  <path d={path}></path>
+                ))}
+              </svg>
+            </span>
+            <span class="contact-card__copy">
+              <span class="contact-card__value">{channel.value}</span>
+            </span>
           </a>
         ))}
       </div>
@@ -162,6 +193,81 @@ const aboutHighlightBadges = [
 <style>
   .about-badge-runway {
     position: relative;
+  }
+
+  .contact-card {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.9rem;
+    align-items: center;
+    width: 100%;
+    min-height: 5.1rem;
+  }
+
+  .contact-card__icon {
+    display: grid;
+    width: 2.45rem;
+    height: 2.45rem;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    background:
+      radial-gradient(circle at 32% 24%, rgba(255, 255, 255, 0.2), transparent 34%),
+      linear-gradient(145deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.035));
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.22),
+      0 12px 24px rgba(0, 0, 0, 0.22),
+      0 0 22px rgba(34, 211, 238, 0.08);
+    color: rgba(255, 255, 255, 0.88);
+  }
+
+  .contact-card__icon svg {
+    width: 1.15rem;
+    height: 1.15rem;
+    overflow: visible;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.9;
+  }
+
+  .contact-card__copy {
+    display: grid;
+    min-width: 0;
+    align-items: center;
+  }
+
+  .contact-card__value {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    color: white;
+    font-size: clamp(0.95rem, 1.15vw, 1rem);
+    line-height: 1.35;
+  }
+
+  @media (max-width: 639px) {
+    .contact-grid {
+      justify-items: start;
+    }
+
+    .contact-card {
+      width: fit-content;
+      min-width: min(100%, 17.25rem);
+      max-width: 100%;
+      min-height: 4.35rem;
+      gap: 0.72rem;
+      padding: 0.82rem 0.95rem;
+    }
+
+    .contact-card__icon {
+      width: 2.05rem;
+      height: 2.05rem;
+    }
+
+    .contact-card__value {
+      font-size: 0.92rem;
+    }
   }
 
   .about-badge-line {
