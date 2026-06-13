@@ -1,0 +1,334 @@
+---
+import { experienceTimeline } from '../data/about';
+
+const timelineItems = [...experienceTimeline].map((item) => ({
+  ...item,
+  year: item.period.split(' - ')[0]
+}));
+const digits = Array.from({ length: 10 }, (_, index) => index);
+---
+
+<section class="experience-dial" data-experience-dial data-reveal-child>
+  <div class="experience-dial__wheel" data-dial-wheel aria-label="Experience timeline selector">
+    <div class="experience-dial__counter-row">
+      <div class="experience-dial__counter" aria-live="polite">
+        {Array.from({ length: 4 }).map((_, columnIndex) => (
+          <div class="experience-dial__digit" data-digit-column>
+            <div class="experience-dial__digit-strip">
+              {digits.map((digit) => (
+                <span>{digit}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="experience-dial__controls" aria-label="Timeline navigation">
+        <button type="button" class="experience-dial__step" data-step="-1" aria-label="Previous timeline item">
+          <span class="experience-dial__chevron experience-dial__chevron--up" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="experience-dial__step" data-step="1" aria-label="Next timeline item">
+          <span class="experience-dial__chevron experience-dial__chevron--down" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <article class="experience-dial__panel" data-dial-panel>
+    <p class="experience-dial__kicker">Experience Timeline</p>
+    <h3 data-dial-title>{timelineItems[0].title}</h3>
+    <p data-dial-detail>{timelineItems[0].detail}</p>
+  </article>
+</section>
+
+<script define:vars={{ timelineItems }}>
+  const clampIndex = (index, total) => (index + total) % total;
+
+  document.querySelectorAll('[data-experience-dial]').forEach((dial) => {
+    const steps = [...dial.querySelectorAll('[data-step]')];
+    const digitColumns = [...dial.querySelectorAll('[data-digit-column]')];
+    const titleEl = dial.querySelector('[data-dial-title]');
+    const detailEl = dial.querySelector('[data-dial-detail]');
+    let activeIndex = 0;
+
+    const setActive = (nextIndex) => {
+      activeIndex = clampIndex(nextIndex, timelineItems.length);
+      const item = timelineItems[activeIndex];
+
+      dial.style.setProperty('--active-index', String(activeIndex));
+      titleEl.textContent = item.title;
+      detailEl.textContent = item.detail;
+
+      item.year.split('').forEach((digit, index) => {
+        digitColumns[index]?.style.setProperty('--digit', digit);
+      });
+
+    };
+
+    steps.forEach((step) => {
+      step.addEventListener('click', (event) => {
+        event.preventDefault();
+        setActive(activeIndex + Number(step.dataset.step));
+      });
+    });
+
+    dial.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
+        event.preventDefault();
+        setActive(activeIndex + 1);
+      }
+
+      if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') {
+        event.preventDefault();
+        setActive(activeIndex - 1);
+      }
+    });
+
+    dial.tabIndex = 0;
+    setActive(0);
+  });
+</script>
+
+<style>
+  .experience-dial {
+    --active-index: 0;
+    position: relative;
+    display: grid;
+    min-height: clamp(16rem, 24vw, 18.5rem);
+    grid-template-columns: minmax(16rem, 0.76fr) minmax(0, 1.24fr);
+    gap: clamp(1.4rem, 4vw, 4rem);
+    align-items: center;
+    overflow: hidden;
+    outline: none;
+    isolation: isolate;
+  }
+
+  .experience-dial__wheel {
+    display: grid;
+    justify-items: center;
+  }
+
+  .experience-dial__counter-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    width: 100%;
+  }
+
+  .experience-dial__counter {
+    position: relative;
+    display: grid;
+    width: min(17.8rem, calc(100% - 3.6rem));
+    height: clamp(4.45rem, 7.5vw, 5.35rem);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 1.45rem;
+    background:
+      radial-gradient(circle at 82% 18%, rgba(34, 211, 238, 0.16), transparent 26%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.035) 42%, rgba(0, 0, 0, 0.24));
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.32),
+      inset 0 -24px 38px rgba(0, 0, 0, 0.26),
+      0 24px 70px rgba(0, 0, 0, 0.32),
+      0 0 42px rgba(34, 211, 238, 0.08);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+  }
+
+  .experience-dial__counter::before,
+  .experience-dial__counter::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    z-index: 4;
+    pointer-events: none;
+  }
+
+  .experience-dial__counter::before {
+    top: 0;
+    height: 42%;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.035) 68%, transparent),
+      radial-gradient(ellipse at 70% 0%, rgba(255, 255, 255, 0.26), transparent 48%);
+  }
+
+  .experience-dial__counter::after {
+    bottom: 0;
+    height: 38%;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.34), transparent);
+  }
+
+  .experience-dial__digit {
+    position: relative;
+    overflow: hidden;
+    border-right: 1px solid rgba(255, 255, 255, 0.075);
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, 0.16), transparent 18%, transparent 82%, rgba(0, 0, 0, 0.14)),
+      rgba(255, 255, 255, 0.018);
+  }
+
+  .experience-dial__digit:last-child {
+    border-right: 0;
+  }
+
+  .experience-dial__digit-strip {
+    display: grid;
+    translate: 0 calc(var(--digit, 0) * -1em);
+    color: rgba(255, 255, 255, 0.94);
+    font-size: clamp(2.65rem, 5.9vw, 4.25rem);
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 1;
+    text-align: center;
+    text-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.18),
+      0 18px 26px rgba(0, 0, 0, 0.32);
+    transition: translate 620ms var(--motion-ease);
+    will-change: translate;
+  }
+
+  .experience-dial__digit-strip span {
+    height: 1em;
+    display: grid;
+    place-items: center;
+  }
+
+  .experience-dial__controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.72rem;
+  }
+
+  .experience-dial__step {
+    border: 0;
+    outline: 0;
+    font: inherit;
+    transition:
+      background 260ms var(--motion-ease),
+      color 260ms var(--motion-ease),
+      transform 260ms var(--motion-ease);
+  }
+
+  .experience-dial__step {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.055);
+    color: rgba(255, 255, 255, 0.66);
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  .experience-dial__chevron {
+    width: 0.48rem;
+    height: 0.48rem;
+    border-top: 2px solid currentColor;
+    border-left: 2px solid currentColor;
+  }
+
+  .experience-dial__chevron--up {
+    transform: translateY(0.12rem) rotate(45deg);
+  }
+
+  .experience-dial__chevron--down {
+    transform: translateY(-0.12rem) rotate(225deg);
+  }
+
+  .experience-dial__step:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+  }
+
+  .experience-dial__step:focus-visible {
+    outline: 1px solid rgba(34, 211, 238, 0.42);
+    outline-offset: 3px;
+  }
+
+  .experience-dial__panel {
+    position: relative;
+    max-width: 44rem;
+    padding: clamp(0.5rem, 1.5vw, 1rem) 0;
+  }
+
+  .experience-dial__panel::before {
+    content: "";
+    position: absolute;
+    inset: 8% auto 8% -1.6rem;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+  }
+
+  .experience-dial__kicker {
+    color: rgba(34, 211, 238, 0.76);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .experience-dial__panel h3 {
+    max-width: 35rem;
+    margin-top: 1.15rem;
+    color: white;
+    font-size: clamp(1.55rem, 3.3vw, 3rem);
+    font-weight: 700;
+    line-height: 1.04;
+    text-wrap: balance;
+  }
+
+  .experience-dial__panel p:last-child {
+    max-width: 40rem;
+    margin-top: 1rem;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: clamp(0.95rem, 1.45vw, 1.08rem);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 980px) {
+    .experience-dial {
+      min-height: auto;
+      grid-template-columns: 1fr;
+      gap: 1.6rem;
+    }
+
+    .experience-dial__panel::before {
+      display: none;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .experience-dial__counter-row {
+      gap: 0.5rem;
+    }
+
+    .experience-dial__counter {
+      width: min(15rem, calc(100% - 4.7rem));
+      height: 4.35rem;
+      border-radius: 1.2rem;
+    }
+
+    .experience-dial__digit-strip {
+      font-size: clamp(2.25rem, 12vw, 3.15rem);
+    }
+
+    .experience-dial__step {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .experience-dial__digit-strip,
+    .experience-dial__step {
+      transition: none;
+    }
+  }
+</style>

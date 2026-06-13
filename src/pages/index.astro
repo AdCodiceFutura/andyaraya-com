@@ -4,20 +4,44 @@ import Hero from '../components/Hero.astro';
 import SectionShell from '../components/SectionShell.astro';
 import MindmapGraph from '../components/MindmapGraph.astro';
 import CredentialsSection from '../components/CredentialsSection.astro';
-import BlogSection from '../components/BlogSection.astro';
-import ProjectsSection from '../components/ProjectsSection.astro';
 import BooksCarousel from '../components/BooksCarousel.astro';
-import {
-  aboutHighlights,
-  educationEntries,
-  experienceTimeline,
-  personalStory,
-  resumeDownload
-} from '../data/about';
+import ExperienceDial from '../components/ExperienceDial.astro';
+import { educationEntries, personalStory, resumeDownload } from '../data/about';
 import { contactChannels } from '../data/contact';
 import { profile } from '../data/profile';
 
 const personalStoryParagraphs = personalStory.split('\n\n');
+const educationBadge = educationEntries[0];
+const aboutHighlightBadges = [
+  {
+    mark: 'ED',
+    title: educationBadge.title,
+    detail: educationBadge.issuer,
+    status: 'Education',
+    accent: '#f59e0b'
+  },
+  {
+    mark: '10+',
+    title: 'Creative & Digital Projects',
+    detail: '10+ years leading',
+    status: 'Leadership',
+    accent: '#22d3ee'
+  },
+  {
+    mark: 'PD',
+    title: 'Project Director',
+    detail: 'PROSESO since 2021',
+    status: 'Current Role',
+    accent: '#9d4dff'
+  },
+  {
+    mark: 'MX',
+    title: 'Multinational Clients',
+    detail: 'Unilever & Essity',
+    status: 'Experience',
+    accent: '#34d399'
+  }
+] as const;
 ---
 
 <BaseLayout
@@ -45,17 +69,8 @@ const personalStoryParagraphs = personalStory.split('\n\n');
   </SectionShell>
 
   <SectionShell
-    id="projects"
-    eyebrow="03 / Projects"
-    title="Systems that move the business forward"
-    intro="Selected projects showing how strategic thinking, software development and AI can transform operational challenges into measurable business outcomes."
-  >
-    <ProjectsSection />
-  </SectionShell>
-
-  <SectionShell
     id="books"
-    eyebrow="04 / Books"
+    eyebrow="03 / Books"
     title="A library of ideas behind the work that compound over time"
     intro="An ongoing collection of books that continue to shape how I think about strategy, systems and long-term value creation."
   >
@@ -63,17 +78,8 @@ const personalStoryParagraphs = personalStory.split('\n\n');
   </SectionShell>
 
   <SectionShell
-    id="blog"
-    eyebrow="05 / Blog"
-    title="Like poetry, but for geeks"
-    intro="Thoughts on AI, software, automation and business systems for curious builders and lifelong learners."
-  >
-    <BlogSection />
-  </SectionShell>
-
-  <SectionShell
     id="about"
-    eyebrow="06 / Why I think this way"
+    eyebrow="04 / Why I think this way"
     title="Connecting the dots"
     intro="A multidisciplinary path through design, business, technology and systems thinking."
   >
@@ -84,41 +90,25 @@ const personalStoryParagraphs = personalStory.split('\n\n');
         </div>
       </article>
 
-      <div class="grid gap-3 sm:grid-cols-3" data-stagger>
-        {aboutHighlights.map((item) => (
-          <p class="glass-card rounded-[1.35rem] p-5 text-sm leading-7 text-white/72" data-reveal-child>
-            {item}
-          </p>
-        ))}
-      </div>
-
-      <div class="grid gap-4 lg:grid-cols-2" data-reveal-child>
-        <div>
-          <p class="text-xs uppercase tracking-[0.2em] text-white/40">Experience Timeline</p>
-          <div class="mt-5 grid gap-4" data-stagger>
-            {experienceTimeline.map((item) => (
-              <article class="glass-card rounded-[1.35rem] p-5" data-reveal-child>
-                <p class="text-xs uppercase tracking-[0.2em] text-white/35">{item.period}</p>
-                <h3 class="mt-2 text-base font-medium text-white">{item.title}</h3>
-                <p class="mt-2 text-sm leading-6 text-white/65">{item.detail}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <p class="text-xs uppercase tracking-[0.2em] text-white/40">Education</p>
-          <div class="mt-5 grid gap-4" data-stagger>
-            {educationEntries.map((item) => (
-              <article class="glass-card rounded-[1.35rem] p-5" data-reveal-child>
-                <p class="text-xs uppercase tracking-[0.2em] text-white/35">{item.issuer}</p>
-                <h3 class="mt-2 text-base font-medium text-white">{item.title}</h3>
-                <p class="mt-2 text-sm leading-6 text-white/65">{item.detail}</p>
-              </article>
-            ))}
-          </div>
+      <div class="about-badge-runway py-10" data-stagger>
+        <div class="about-badge-line">
+          {aboutHighlightBadges.map((item, index) => (
+            <div
+              class="about-badge"
+              style={`--about-accent: ${item.accent}; --about-delay: ${index * 340}ms`}
+              data-reveal-child
+            >
+              <span class="about-badge-glow" aria-hidden="true"></span>
+              <span class="about-badge-crown" aria-hidden="true">{item.mark}</span>
+              <span class="about-badge-title">{item.title}</span>
+              <span class="about-badge-detail">{item.detail}</span>
+              <span class="about-badge-status">{item.status}</span>
+            </div>
+          ))}
         </div>
       </div>
+
+      <ExperienceDial />
 
       <div class="flex flex-wrap items-center gap-3 border-t border-white/8 pt-6" data-reveal-child>
         <a
@@ -142,7 +132,7 @@ const personalStoryParagraphs = personalStory.split('\n\n');
 
   <SectionShell
     id="contact"
-    eyebrow="07 / Contact"
+    eyebrow="05 / Contact"
     title="Building value from the inside"
     intro="Seeking opportunities to contribute, lead and help organizations move faster through better systems and technology."
   >
@@ -168,3 +158,289 @@ const personalStoryParagraphs = personalStory.split('\n\n');
     </div>
   </SectionShell>
 </BaseLayout>
+
+<style>
+  .about-badge-runway {
+    position: relative;
+  }
+
+  .about-badge-line {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(10.9rem, 100%), 1fr));
+    gap: clamp(1.25rem, 3vw, 2rem);
+    align-items: start;
+    justify-items: center;
+    isolation: isolate;
+    padding: 0;
+  }
+
+  .about-badge {
+    --about-accent: #22d3ee;
+    position: relative;
+    display: grid;
+    width: 11.8rem;
+    min-height: 11.4rem;
+    max-width: 100%;
+    place-items: center;
+    align-content: start;
+    padding: 1.18rem 1.05rem 0.72rem;
+    color: white;
+    text-align: center;
+    filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.3));
+    animation: about-badge-float 6.8s ease-in-out infinite;
+    animation-delay: var(--about-delay, 0ms);
+    isolation: isolate;
+    transition:
+      transform 420ms var(--motion-ease),
+      filter 420ms var(--motion-ease);
+  }
+
+  .about-badge::before,
+  .about-badge::after {
+    content: "";
+    position: absolute;
+    transition:
+      transform 420ms var(--motion-ease),
+      background 420ms var(--motion-ease),
+      opacity 420ms var(--motion-ease);
+  }
+
+  .about-badge::before {
+    inset: 0.24rem 0.64rem auto;
+    aspect-ratio: 1;
+    border-radius: 999px;
+    background:
+      radial-gradient(circle at 38% 28%, rgba(255, 255, 255, 0.52), transparent 22%),
+      radial-gradient(circle at 62% 72%, color-mix(in srgb, var(--about-accent) 34%, transparent), transparent 38%),
+      linear-gradient(145deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.08) 52%, color-mix(in srgb, var(--about-accent) 18%, rgba(255, 255, 255, 0.08)));
+    border: 1px solid color-mix(in srgb, var(--about-accent) 26%, rgba(255, 255, 255, 0.36));
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.52),
+      inset 0 -28px 48px color-mix(in srgb, var(--about-accent) 16%, rgba(10, 12, 18, 0.18)),
+      0 0 0 1px rgba(255, 255, 255, 0.08),
+      0 18px 42px rgba(0, 0, 0, 0.24),
+      0 0 28px color-mix(in srgb, var(--about-accent) 18%, transparent);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    animation: about-badge-pulse 4.8s ease-in-out infinite;
+    animation-delay: calc(var(--about-delay, 0ms) * -0.65);
+    opacity: 1;
+    z-index: 0;
+  }
+
+  .about-badge::after {
+    inset: 1rem 1.42rem auto;
+    aspect-ratio: 1;
+    border-radius: 999px;
+    background:
+      radial-gradient(circle at 40% 30%, rgba(255, 255, 255, 0.34), transparent 24%),
+      radial-gradient(circle at 64% 68%, color-mix(in srgb, var(--about-accent) 18%, transparent), transparent 42%),
+      rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.28),
+      inset 0 -18px 34px color-mix(in srgb, var(--about-accent) 10%, transparent);
+    animation: about-badge-inner-pulse 5.4s ease-in-out infinite;
+    animation-delay: calc(var(--about-delay, 0ms) * -0.8);
+    opacity: 0.7;
+    z-index: 1;
+    transition:
+      transform 420ms var(--motion-ease),
+      background 420ms var(--motion-ease),
+      opacity 420ms var(--motion-ease);
+  }
+
+  .about-badge:hover {
+    transform: translateY(-5px) scale(1.018);
+    filter:
+      drop-shadow(0 18px 26px rgba(0, 0, 0, 0.32))
+      drop-shadow(0 0 15px color-mix(in srgb, var(--about-accent) 38%, transparent));
+  }
+
+  .about-badge:hover::before {
+    transform: scale(1.018);
+  }
+
+  .about-badge-glow {
+    position: absolute;
+    inset: 0.45rem 1.4rem auto;
+    height: 5.8rem;
+    border-radius: 999px;
+    background: radial-gradient(circle, color-mix(in srgb, var(--about-accent) 30%, white 14%), transparent 70%);
+    animation: about-badge-glow-breathe 4.8s ease-in-out infinite;
+    animation-delay: calc(var(--about-delay, 0ms) * -0.65);
+    opacity: 0.5;
+    z-index: 2;
+  }
+
+  .about-badge-crown,
+  .about-badge-title,
+  .about-badge-detail,
+  .about-badge-status {
+    position: relative;
+    z-index: 3;
+  }
+
+  .about-badge-crown {
+    order: 1;
+    display: grid;
+    width: 1.72rem;
+    height: 1.72rem;
+    margin-top: 0.54rem;
+    place-items: center;
+    border: 1px solid color-mix(in srgb, var(--about-accent) 42%, rgba(255, 255, 255, 0.62));
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.44rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.28),
+      0 8px 16px rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .about-badge-title {
+    order: 2;
+    display: block;
+    width: 8.35rem;
+    min-height: 2.42rem;
+    margin-top: 0.84rem;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 0.72rem;
+    font-weight: 800;
+    line-height: 1.12;
+    text-wrap: balance;
+  }
+
+  .about-badge-detail {
+    order: 3;
+    display: block;
+    width: 7.8rem;
+    min-height: 0.78rem;
+    margin-top: 0.04rem;
+    color: color-mix(in srgb, var(--about-accent) 46%, rgba(255, 255, 255, 0.86));
+    font-size: 0.35rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    line-height: 1.22;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .about-badge-status {
+    order: 4;
+    margin-top: 0.08rem;
+    color: rgba(255, 255, 255, 0.54);
+    font-size: 0.32rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  @keyframes about-badge-float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(-0.15deg);
+    }
+
+    45% {
+      transform: translateY(-0.42rem) rotate(0.18deg);
+    }
+
+    70% {
+      transform: translateY(-0.18rem) rotate(0deg);
+    }
+  }
+
+  @keyframes about-badge-pulse {
+    0%,
+    100% {
+      transform: scale(1);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.52),
+        inset 0 -28px 48px color-mix(in srgb, var(--about-accent) 16%, rgba(10, 12, 18, 0.18)),
+        0 0 0 1px rgba(255, 255, 255, 0.08),
+        0 18px 42px rgba(0, 0, 0, 0.24),
+        0 0 28px color-mix(in srgb, var(--about-accent) 18%, transparent);
+    }
+
+    50% {
+      transform: scale(1.025);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.62),
+        inset 0 -24px 54px color-mix(in srgb, var(--about-accent) 22%, rgba(10, 12, 18, 0.16)),
+        0 0 0 1px rgba(255, 255, 255, 0.12),
+        0 20px 48px rgba(0, 0, 0, 0.26),
+        0 0 38px color-mix(in srgb, var(--about-accent) 28%, transparent);
+    }
+  }
+
+  @keyframes about-badge-inner-pulse {
+    0%,
+    100% {
+      opacity: 0.62;
+      transform: scale(1);
+    }
+
+    50% {
+      opacity: 0.86;
+      transform: scale(1.018);
+    }
+  }
+
+  @keyframes about-badge-glow-breathe {
+    0%,
+    100% {
+      opacity: 0.42;
+      transform: scale(0.96);
+    }
+
+    50% {
+      opacity: 0.7;
+      transform: scale(1.08);
+    }
+  }
+
+  @media (max-width: 780px) {
+    .about-badge-line {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 2rem 1.25rem;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .about-badge-line {
+      grid-template-columns: 1fr;
+      gap: 1.8rem;
+    }
+
+    .about-badge {
+      width: min(13rem, 100%);
+      min-height: 12.4rem;
+      padding-inline: 1.2rem;
+    }
+
+    .about-badge-title {
+      width: min(9rem, 78vw);
+      font-size: 0.78rem;
+    }
+
+    .about-badge-detail {
+      width: min(8.4rem, 74vw);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .about-badge,
+    .about-badge::before,
+    .about-badge::after,
+    .about-badge-glow {
+      animation: none;
+    }
+  }
+</style>
