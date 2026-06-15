@@ -230,8 +230,26 @@ const graphPayload = {
       return neighbors.get(hoveredNode.id)?.has(node.id);
     };
 
+    const getBaseNodeAlpha = (node) => {
+      if (node.type === 'center') return 1;
+      if (node.type === 'category') return 0.82;
+      return 0.48;
+    };
+
+    const getNodeAlpha = (node) => {
+      if (!hoveredNode) return getBaseNodeAlpha(node);
+      return isRelated(node) ? 1 : 0.14;
+    };
+
+    const getLinkAlpha = (link, related) => {
+      if (hoveredNode) return related ? (link.kind === 'primary' ? 0.34 : link.kind === 'bridge' ? 0.26 : 0.22) : 0.035;
+      if (link.kind === 'primary') return 0.22;
+      if (link.kind === 'bridge') return 0.055;
+      return 0.052;
+    };
+
     const drawLabel = (node, alpha) => {
-      const color = node.type === 'item' ? `rgba(220,225,230,${alpha * 0.68})` : `rgba(245,247,250,${alpha * 0.86})`;
+      const color = node.type === 'item' ? `rgba(220,225,230,${alpha * 0.76})` : `rgba(245,247,250,${alpha * 0.92})`;
       ctx.font =
         node.type === 'center'
           ? '800 16px Inter, system-ui, sans-serif'
@@ -257,7 +275,7 @@ const graphPayload = {
 
       links.forEach((link) => {
         const related = !hoveredNode || link.source.id === hoveredNode.id || link.target.id === hoveredNode.id;
-        const alpha = related ? 0.24 : 0.045;
+        const alpha = getLinkAlpha(link, related);
         const color = link.kind === 'bridge' ? '157, 108, 255' : link.kind === 'primary' ? '235, 238, 242' : '125, 140, 155';
         ctx.strokeStyle = `rgba(${color},${alpha})`;
         ctx.lineWidth = related ? (link.kind === 'primary' ? 1.2 : 0.85) : 0.55;
@@ -269,7 +287,7 @@ const graphPayload = {
 
       nodes.forEach((node) => {
         const related = isRelated(node);
-        const alpha = related ? 1 : 0.18;
+        const alpha = getNodeAlpha(node);
         const color = accentColors[node.accent] || '#d8dbe0';
         const hoverGrowth = node.type === 'item' ? 2.2 : node.type === 'category' ? 2.8 : 3.4;
         const radius = hoveredNode?.id === node.id ? node.radius + hoverGrowth : node.radius;
