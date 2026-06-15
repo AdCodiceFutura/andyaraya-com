@@ -4,6 +4,7 @@ import Hero from '../components/Hero.astro';
 import SectionShell from '../components/SectionShell.astro';
 import MindmapGraph from '../components/MindmapGraph.astro';
 import CredentialsSection from '../components/CredentialsSection.astro';
+import StrategicCaseStudies from '../components/StrategicCaseStudies.astro';
 import BooksCarousel from '../components/BooksCarousel.astro';
 import ExperienceDial from '../components/ExperienceDial.astro';
 import { educationEntries, personalStory } from '../data/about';
@@ -91,17 +92,26 @@ const aboutHighlightBadges = [
   </SectionShell>
 
   <SectionShell
+    id="case-studies"
+    eyebrow="03 / Business Value / Product Strategy / AI Systems"
+    title="Strategic Case Studies"
+    intro="Business challenges analyzed through product management, systems thinking, AI strategy, and value-driven decision frameworks."
+  >
+    <StrategicCaseStudies />
+  </SectionShell>
+
+  <SectionShell
     id="books"
-    eyebrow="03 / Books"
-    title="A library of ideas behind the work that compound over time"
-    intro="An ongoing collection of books that continue to shape how I think about strategy, systems and long-term value creation."
+    eyebrow="04 / Strategic Reading"
+    title="A strategic reading system behind the work"
+    intro="An ongoing collection of ideas that continue to shape how I think about strategy, systems, product, AI and long-term value creation."
   >
     <BooksCarousel />
   </SectionShell>
 
   <SectionShell
     id="about"
-    eyebrow="04 / Why I think this way"
+    eyebrow="05 / Why I think this way"
     title="Connecting the dots"
     intro="A multidisciplinary path through design, business, technology and systems thinking."
   >
@@ -136,7 +146,7 @@ const aboutHighlightBadges = [
 
   <SectionShell
     id="contact"
-    eyebrow="05 / Contact"
+    eyebrow="06 / Contact"
     title="Let's build together"
     intro="Seeking opportunities to contribute, lead and help organizations move faster through better systems and technology."
   >

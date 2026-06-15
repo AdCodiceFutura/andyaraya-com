@@ -1,0 +1,542 @@
+---
+const caseStudies = [
+  {
+    number: '01',
+    title: 'Enterprise AI Operations Transformation',
+    problem:
+      'A growing company loses operational speed because teams rely on email, spreadsheets, manual approvals, and disconnected internal systems.',
+    recommendation:
+      'Design an AI-enabled operations layer that connects workflows, automates repetitive tasks, centralizes approvals, and gives leadership real-time operational visibility.',
+    impact: ['$420K annual savings', '62% less admin work', '4.5x faster approvals', 'ROI in 8 months'],
+    heroMetric: '$420K',
+    heroLabel: 'Potential annual savings',
+    tags: ['Product Discovery', 'Process Mapping', 'ROI Analysis', 'AI Automation', 'Stakeholder Alignment'],
+    summary:
+      'This scenario evaluates where operational value is lost across manual coordination, approval latency, and fragmented visibility. The recommended path focuses on a pragmatic AI operations layer instead of a disruptive full-platform replacement.',
+    options: ['Hire more people', 'Replace the full ERP', 'Build an AI-enabled operations layer'],
+    chart: {
+      type: 'bars',
+      rows: [
+        ['Administrative Work', 100, 38],
+        ['Approval Time', 100, 27],
+        ['Operational Visibility', 30, 85]
+      ]
+    }
+  },
+  {
+    number: '02',
+    title: 'AI-Powered Revenue Intelligence',
+    problem:
+      'A retail company has sales, marketing, and inventory data, but lacks a decision system that turns that data into profitability insights.',
+    recommendation:
+      'Create a revenue intelligence platform that combines dashboards, predictive analytics, AI-generated insights, inventory alerts, and executive reporting.',
+    impact: ['12% profitability lift', '18% less dead inventory', '30 hours saved monthly', 'Sharper prioritization'],
+    heroMetric: '+12%',
+    heroLabel: 'Projected profitability lift',
+    tags: ['Market Analysis', 'Data Strategy', 'Business Intelligence', 'Predictive AI', 'Product Prioritization'],
+    summary:
+      'This strategic scenario turns disconnected commercial data into an executive decision layer. The value comes from connecting profitability, inventory movement, campaign performance, and AI-generated recommendations.',
+    options: ['Add more reports', 'Buy a generic BI dashboard', 'Build revenue intelligence workflows'],
+    chart: {
+      type: 'line',
+      points: [100, 103, 106, 108, 111, 112]
+    }
+  },
+  {
+    number: '03',
+    title: 'Autonomous Content Intelligence System',
+    problem:
+      'Marketing teams react too slowly to cultural trends, resulting in missed opportunities, high production costs, and inconsistent content performance.',
+    recommendation:
+      'Design an AI-powered content intelligence system that detects trends, ranks opportunities, generates content briefs, supports creative workflows, and reports performance.',
+    impact: ['70% faster planning', '10x faster ideation', '3x more opportunities', 'Stronger business alignment'],
+    heroMetric: '-70%',
+    heroLabel: 'Content planning time',
+    tags: ['AI Strategy', 'Social Listening', 'Content Systems', 'Workflow Automation', 'Performance Analysis'],
+    summary:
+      'This business transformation analysis connects culture, creative execution, and performance data into a repeatable decision system for content teams operating under speed and relevance pressure.',
+    options: ['Increase production budget', 'Outsource trend research', 'Build content intelligence workflows'],
+    chart: {
+      type: 'workflow',
+      rows: [
+        ['Trend detection', 8, 1],
+        ['Brief creation', 5, 1],
+        ['Content planning', 6, 2],
+        ['Performance reporting', 4, 0.5]
+      ]
+    }
+  }
+] as const;
+
+const frameworkSteps = [
+  ['Discover the real problem', 'Separate symptoms from the business constraint that is actually slowing value creation.'],
+  ['Quantify the opportunity', 'Estimate time, cost, risk, and upside before proposing a solution path.'],
+  ['Evaluate solution paths', 'Compare options across cost, complexity, speed to value, and strategic impact.'],
+  ['Validate before building', 'Use lightweight tests, stakeholder feedback, and proof points before major investment.'],
+  ['Design for measurable business impact', 'Translate the selected path into systems, metrics, ownership, and implementation phases.']
+] as const;
+
+const discoverySteps = ['Understand the business problem', 'Map users, workflows, and constraints', 'Evaluate strategic options', 'Recommend the highest-value path'];
+const roadmap = ['Discovery', 'Validation', 'MVP', 'Scale'];
+const matrix = ['Cost', 'Complexity', 'Speed to value', 'Strategic impact'];
+---
+
+<div class="strategy-cases" data-stagger>
+  <div class="strategy-cases__grid">
+    {caseStudies.map((study, index) => (
+      <details class="strategy-card" data-reveal-child>
+        <summary>
+          <span class="strategy-card__number">{study.number}</span>
+          <span class="strategy-card__meta">Strategic scenario</span>
+          <span class="strategy-card__title">{study.title}</span>
+          <span class="strategy-card__problem">{study.problem}</span>
+
+          <span class="strategy-card__metric">
+            <strong>{study.heroMetric}</strong>
+            <span>{study.heroLabel}</span>
+          </span>
+
+          <span class="strategy-card__chart" aria-hidden="true">
+            {study.chart.type === 'bars' && (
+              <span class="mini-bars">
+                {study.chart.rows.map(([label, before, after]) => (
+                  <span>
+                    <small>{label}</small>
+                    <i style={`--before:${before}%; --after:${after}%;`}></i>
+                  </span>
+                ))}
+              </span>
+            )}
+
+            {study.chart.type === 'line' && (
+              <svg class="mini-line" viewBox="0 0 220 96" preserveAspectRatio="none">
+                <path d="M8 78 L48 66 L88 52 L128 43 L168 25 L212 20"></path>
+                <polyline points="8,78 48,66 88,52 128,43 168,25 212,20"></polyline>
+                {study.chart.points.map((_, pointIndex) => (
+                  <circle cx={8 + pointIndex * 40} cy={[78, 66, 52, 43, 25, 20][pointIndex]} r="3"></circle>
+                ))}
+              </svg>
+            )}
+
+            {study.chart.type === 'workflow' && (
+              <span class="mini-workflow">
+                {study.chart.rows.map(([label, before, after]) => (
+                  <span>
+                    <small>{label}</small>
+                    <i style={`--before:${before * 10}%; --after:${after * 10}%;`}></i>
+                  </span>
+                ))}
+              </span>
+            )}
+          </span>
+
+          <span class="strategy-card__impact">
+            {study.impact.map((item) => <span>{item}</span>)}
+          </span>
+
+          <span class="strategy-card__tags">
+            {study.tags.map((tag) => <span>{tag}</span>)}
+          </span>
+
+          <span class="strategy-card__cta">View strategic breakdown</span>
+        </summary>
+
+        <div class="strategy-breakdown">
+          <div>
+            <p class="strategy-breakdown__label">Executive Summary</p>
+            <p>{study.summary}</p>
+          </div>
+
+          <div>
+            <p class="strategy-breakdown__label">Discovery Process</p>
+            <ol class="strategy-process">
+              {discoverySteps.map((step) => <li>{step}</li>)}
+            </ol>
+          </div>
+
+          <div>
+            <p class="strategy-breakdown__label">Strategic Options</p>
+            <div class="strategy-options">
+              {study.options.map((option, optionIndex) => (
+                <span class:list={[optionIndex === 2 ? 'is-recommended' : '']}>{option}</span>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p class="strategy-breakdown__label">Decision Logic</p>
+            <div class="strategy-matrix">
+              {matrix.map((item, matrixIndex) => (
+                <span>
+                  <small>{item}</small>
+                  <i style={`--score:${[58, 64, 86, 92][matrixIndex]}%;`}></i>
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div class="strategy-roadmap">
+            {roadmap.map((phase) => <span>{phase}</span>)}
+          </div>
+        </div>
+      </details>
+    ))}
+  </div>
+
+  <section class="strategy-framework glass-card" data-reveal-child>
+    <div>
+      <p class="strategy-framework__kicker">My Strategic Analysis Framework</p>
+      <h3>A structured approach for moving from ambiguity to measurable business impact.</h3>
+      <p>
+        Inspired by product management, AI adoption, business validation, and value-driven decision-making.
+      </p>
+    </div>
+    <ol>
+      {frameworkSteps.map(([title, detail]) => (
+        <li>
+          <strong>{title}</strong>
+          <span>{detail}</span>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <p class="strategy-cases__disclaimer">
+    These conceptual case studies are designed to demonstrate strategic thinking, business analysis, and solution design methodology.
+  </p>
+</div>
+
+<style>
+  .strategy-cases {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .strategy-cases__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .strategy-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.25rem;
+    background:
+      radial-gradient(circle at 80% 0%, rgba(34, 211, 238, 0.1), transparent 32%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025));
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 22px 60px rgba(0, 0, 0, 0.24);
+  }
+
+  .strategy-card summary {
+    display: grid;
+    gap: 0.95rem;
+    min-height: 100%;
+    padding: 1.15rem;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .strategy-card summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .strategy-card__number,
+  .strategy-card__meta,
+  .strategy-breakdown__label,
+  .strategy-framework__kicker,
+  .strategy-cases__disclaimer {
+    color: rgba(34, 211, 238, 0.78);
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .strategy-card__number {
+    color: white;
+    font-size: 1.05rem;
+  }
+
+  .strategy-card__meta {
+    color: rgba(255, 255, 255, 0.36);
+  }
+
+  .strategy-card__title {
+    color: white;
+    font-size: clamp(1.15rem, 1.7vw, 1.45rem);
+    font-weight: 650;
+    line-height: 1.08;
+  }
+
+  .strategy-card__problem,
+  .strategy-breakdown p,
+  .strategy-framework p,
+  .strategy-framework li span {
+    color: rgba(255, 255, 255, 0.64);
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  .strategy-card__metric {
+    display: grid;
+    gap: 0.1rem;
+  }
+
+  .strategy-card__metric strong {
+    color: white;
+    font-size: clamp(1.85rem, 3.2vw, 2.65rem);
+    font-weight: 700;
+    line-height: 0.95;
+  }
+
+  .strategy-card__metric span {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.78rem;
+  }
+
+  .strategy-card__chart {
+    display: grid;
+    min-height: 6.3rem;
+    align-items: center;
+    padding: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.075);
+    border-radius: 0.9rem;
+    background: rgba(0, 0, 0, 0.16);
+  }
+
+  .mini-bars,
+  .mini-workflow {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .mini-bars span,
+  .mini-workflow span {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .mini-bars small,
+  .mini-workflow small {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.62rem;
+  }
+
+  .mini-bars i,
+  .mini-workflow i,
+  .strategy-matrix i {
+    position: relative;
+    display: block;
+    height: 0.36rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .mini-bars i::before,
+  .mini-bars i::after,
+  .mini-workflow i::before,
+  .mini-workflow i::after {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    border-radius: inherit;
+  }
+
+  .mini-bars i::before,
+  .mini-workflow i::before {
+    left: 0;
+    width: var(--before);
+    background: rgba(255, 255, 255, 0.18);
+  }
+
+  .mini-bars i::after,
+  .mini-workflow i::after {
+    left: 0;
+    width: var(--after);
+    background: linear-gradient(90deg, rgba(34, 211, 238, 0.62), rgba(52, 211, 153, 0.54));
+  }
+
+  .mini-line {
+    width: 100%;
+    height: 5.4rem;
+  }
+
+  .mini-line path {
+    fill: none;
+    stroke: rgba(34, 211, 238, 0.12);
+    stroke-width: 16;
+  }
+
+  .mini-line polyline {
+    fill: none;
+    stroke: rgba(34, 211, 238, 0.82);
+    stroke-width: 3;
+  }
+
+  .mini-line circle {
+    fill: white;
+  }
+
+  .strategy-card__impact,
+  .strategy-card__tags,
+  .strategy-options,
+  .strategy-roadmap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .strategy-card__impact span,
+  .strategy-card__tags span,
+  .strategy-options span,
+  .strategy-roadmap span {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.68rem;
+    line-height: 1;
+    padding: 0.42rem 0.55rem;
+  }
+
+  .strategy-card__tags span {
+    color: rgba(255, 255, 255, 0.48);
+  }
+
+  .strategy-card__cta {
+    width: max-content;
+    border-radius: 999px;
+    background: rgba(34, 211, 238, 0.09);
+    color: rgba(207, 250, 254, 0.9);
+    font-size: 0.78rem;
+    padding: 0.65rem 0.9rem;
+  }
+
+  .strategy-breakdown {
+    display: grid;
+    gap: 1rem;
+    padding: 0 1.15rem 1.15rem;
+  }
+
+  .strategy-process {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin: 0.7rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .strategy-process li {
+    border-top: 1px solid rgba(34, 211, 238, 0.34);
+    color: rgba(255, 255, 255, 0.66);
+    font-size: 0.72rem;
+    line-height: 1.35;
+    padding-top: 0.55rem;
+  }
+
+  .strategy-options .is-recommended {
+    border-color: rgba(34, 211, 238, 0.3);
+    background: rgba(34, 211, 238, 0.11);
+    color: rgba(207, 250, 254, 0.92);
+  }
+
+  .strategy-matrix {
+    display: grid;
+    gap: 0.45rem;
+    margin-top: 0.7rem;
+  }
+
+  .strategy-matrix span {
+    display: grid;
+    grid-template-columns: 7rem minmax(0, 1fr);
+    gap: 0.65rem;
+    align-items: center;
+  }
+
+  .strategy-matrix small {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.68rem;
+  }
+
+  .strategy-matrix i::after {
+    content: "";
+    display: block;
+    width: var(--score);
+    height: 100%;
+    border-radius: inherit;
+    background: rgba(34, 211, 238, 0.62);
+  }
+
+  .strategy-framework {
+    display: grid;
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+    gap: 1.4rem;
+    padding: 1.25rem;
+    border-radius: 1.2rem;
+  }
+
+  .strategy-framework h3 {
+    margin-top: 0.65rem;
+    color: white;
+    font-size: clamp(1.4rem, 2vw, 2rem);
+    line-height: 1.08;
+  }
+
+  .strategy-framework p {
+    margin-top: 0.8rem;
+  }
+
+  .strategy-framework ol {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .strategy-framework li {
+    display: grid;
+    gap: 0.22rem;
+    padding-left: 0.85rem;
+    border-left: 1px solid rgba(34, 211, 238, 0.28);
+  }
+
+  .strategy-framework li strong {
+    color: white;
+    font-size: 0.9rem;
+  }
+
+  .strategy-cases__disclaimer {
+    max-width: 52rem;
+    color: rgba(255, 255, 255, 0.38);
+    letter-spacing: 0.08em;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 1080px) {
+    .strategy-cases__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .strategy-process {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 720px) {
+    .strategy-framework {
+      grid-template-columns: 1fr;
+    }
+
+    .strategy-process {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
