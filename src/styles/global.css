@@ -1119,6 +1119,24 @@ body::before {
   }
 }
 
+.hero-background {
+  min-height: clamp(38rem, 46vw, 50rem);
+  background: #01040b;
+}
+
+.hero-background-image {
+  background-image: url('/images/branding/Hero_Image.png');
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.hero-background-shade {
+  background:
+    linear-gradient(180deg, rgba(1, 4, 11, 0.1) 0%, rgba(1, 4, 11, 0.2) 34%, rgba(1, 4, 11, 0) 58%),
+    radial-gradient(circle at 50% 9rem, rgba(1, 4, 11, 0.54), rgba(1, 4, 11, 0) 34%);
+}
+
 .hero-title {
   --hero-title-delay: 0.1s;
   opacity: 0;
@@ -1182,6 +1200,23 @@ body::before {
   transform: translateY(18px);
   filter: blur(6px);
   animation: hero-copy-reveal 780ms var(--motion-ease) 0.82s forwards;
+}
+
+@media (max-width: 767px) {
+  .hero-background {
+    min-height: 42rem;
+  }
+
+  .hero-background-image {
+    background-position: center calc(100% + 5.5rem);
+    background-size: auto 100%;
+  }
+
+  .hero-background-shade {
+    background:
+      linear-gradient(180deg, rgba(1, 4, 11, 0.22) 0%, rgba(1, 4, 11, 0.36) 42%, rgba(1, 4, 11, 0.04) 64%),
+      radial-gradient(circle at 50% 10rem, rgba(1, 4, 11, 0.64), rgba(1, 4, 11, 0) 38%);
+  }
 }
 
 [data-line] {

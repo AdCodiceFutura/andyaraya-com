@@ -40,14 +40,14 @@ const aboutHighlightBadges = [
     title: educationBadge.title,
     detail: educationBadge.issuer,
     status: 'Education',
-    accent: '#f59e0b'
+    accent: '#ffb000'
   },
   {
     mark: '10+',
     title: 'Creative & Digital Projects',
     detail: '10+ years leading',
     status: 'Leadership',
-    accent: '#22d3ee'
+    accent: '#00e5ff'
   },
   {
     mark: 'PD',
@@ -61,7 +61,7 @@ const aboutHighlightBadges = [
     title: 'Multinational Clients',
     detail: 'Unilever & Essity',
     status: 'Experience',
-    accent: '#34d399'
+    accent: '#00ffae'
   }
 ] as const;
 ---
@@ -299,7 +299,9 @@ const aboutHighlightBadges = [
     padding: 1.18rem 1.05rem 0.72rem;
     color: white;
     text-align: center;
-    filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.3));
+    filter:
+      drop-shadow(0 18px 28px rgba(0, 0, 0, 0.3))
+      drop-shadow(0 0 18px color-mix(in srgb, var(--about-accent) 28%, transparent));
     animation: about-badge-float 6.8s ease-in-out infinite;
     animation-delay: var(--about-delay, 0ms);
     isolation: isolate;
@@ -323,18 +325,20 @@ const aboutHighlightBadges = [
     aspect-ratio: 1;
     border-radius: 999px;
     background:
-      radial-gradient(circle at 38% 28%, rgba(255, 255, 255, 0.52), transparent 22%),
-      radial-gradient(circle at 62% 72%, color-mix(in srgb, var(--about-accent) 34%, transparent), transparent 38%),
-      linear-gradient(145deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.08) 52%, color-mix(in srgb, var(--about-accent) 18%, rgba(255, 255, 255, 0.08)));
-    border: 1px solid color-mix(in srgb, var(--about-accent) 26%, rgba(255, 255, 255, 0.36));
+      radial-gradient(circle at 34% 24%, rgba(255, 255, 255, 0.58), transparent 20%),
+      radial-gradient(circle at 58% 70%, color-mix(in srgb, var(--about-accent) 30%, transparent), transparent 42%),
+      radial-gradient(circle at 50% 52%, color-mix(in srgb, var(--about-accent) 10%, transparent), transparent 58%),
+      linear-gradient(145deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.08) 52%, color-mix(in srgb, var(--about-accent) 16%, rgba(255, 255, 255, 0.08)));
+    border: 1px solid color-mix(in srgb, var(--about-accent) 66%, rgba(255, 255, 255, 0.42));
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.52),
-      inset 0 -28px 48px color-mix(in srgb, var(--about-accent) 16%, rgba(10, 12, 18, 0.18)),
+      inset 0 1px 0 rgba(255, 255, 255, 0.62),
+      inset 0 -28px 52px color-mix(in srgb, var(--about-accent) 16%, rgba(10, 12, 18, 0.18)),
       0 0 0 1px rgba(255, 255, 255, 0.08),
       0 18px 42px rgba(0, 0, 0, 0.24),
-      0 0 28px color-mix(in srgb, var(--about-accent) 18%, transparent);
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
+      0 0 44px color-mix(in srgb, var(--about-accent) 42%, transparent),
+      0 0 96px color-mix(in srgb, var(--about-accent) 20%, transparent);
+    backdrop-filter: blur(18px) saturate(190%);
+    -webkit-backdrop-filter: blur(18px) saturate(190%);
     animation: about-badge-pulse 4.8s ease-in-out infinite;
     animation-delay: calc(var(--about-delay, 0ms) * -0.65);
     opacity: 1;
@@ -346,13 +350,14 @@ const aboutHighlightBadges = [
     aspect-ratio: 1;
     border-radius: 999px;
     background:
-      radial-gradient(circle at 40% 30%, rgba(255, 255, 255, 0.34), transparent 24%),
-      radial-gradient(circle at 64% 68%, color-mix(in srgb, var(--about-accent) 18%, transparent), transparent 42%),
+      radial-gradient(circle at 36% 28%, rgba(255, 255, 255, 0.34), transparent 24%),
+      radial-gradient(circle at 64% 68%, color-mix(in srgb, var(--about-accent) 18%, transparent), transparent 46%),
       rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 1px solid color-mix(in srgb, var(--about-accent) 34%, rgba(255, 255, 255, 0.2));
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.28),
-      inset 0 -18px 34px color-mix(in srgb, var(--about-accent) 10%, transparent);
+      inset 0 -18px 34px color-mix(in srgb, var(--about-accent) 10%, transparent),
+      0 0 24px color-mix(in srgb, var(--about-accent) 18%, transparent);
     animation: about-badge-inner-pulse 5.4s ease-in-out infinite;
     animation-delay: calc(var(--about-delay, 0ms) * -0.8);
     opacity: 0.7;
@@ -367,7 +372,7 @@ const aboutHighlightBadges = [
     transform: translateY(-5px) scale(1.018);
     filter:
       drop-shadow(0 18px 26px rgba(0, 0, 0, 0.32))
-      drop-shadow(0 0 15px color-mix(in srgb, var(--about-accent) 38%, transparent));
+      drop-shadow(0 0 26px color-mix(in srgb, var(--about-accent) 68%, transparent));
   }
 
   .about-badge:hover::before {
@@ -379,7 +384,7 @@ const aboutHighlightBadges = [
     inset: 0.45rem 1.4rem auto;
     height: 5.8rem;
     border-radius: 999px;
-    background: radial-gradient(circle, color-mix(in srgb, var(--about-accent) 30%, white 14%), transparent 70%);
+    background: radial-gradient(circle, color-mix(in srgb, var(--about-accent) 78%, white 12%), transparent 70%);
     animation: about-badge-glow-breathe 4.8s ease-in-out infinite;
     animation-delay: calc(var(--about-delay, 0ms) * -0.65);
     opacity: 0.5;
@@ -401,16 +406,17 @@ const aboutHighlightBadges = [
     height: 1.72rem;
     margin-top: 0.54rem;
     place-items: center;
-    border: 1px solid color-mix(in srgb, var(--about-accent) 42%, rgba(255, 255, 255, 0.62));
+    border: 1px solid color-mix(in srgb, var(--about-accent) 72%, rgba(255, 255, 255, 0.62));
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.18);
+    background: color-mix(in srgb, var(--about-accent) 20%, rgba(255, 255, 255, 0.18));
     color: rgba(255, 255, 255, 0.9);
     font-size: 0.44rem;
     font-weight: 800;
     letter-spacing: 0.08em;
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.28),
-      0 8px 16px rgba(0, 0, 0, 0.12);
+      0 8px 16px rgba(0, 0, 0, 0.12),
+      0 0 20px color-mix(in srgb, var(--about-accent) 46%, transparent);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
   }
@@ -426,6 +432,7 @@ const aboutHighlightBadges = [
     font-weight: 800;
     line-height: 1.12;
     text-wrap: balance;
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.34);
   }
 
   .about-badge-detail {
@@ -434,7 +441,7 @@ const aboutHighlightBadges = [
     width: 7.8rem;
     min-height: 0.78rem;
     margin-top: 0.04rem;
-    color: color-mix(in srgb, var(--about-accent) 46%, rgba(255, 255, 255, 0.86));
+    color: color-mix(in srgb, var(--about-accent) 72%, rgba(255, 255, 255, 0.92));
     font-size: 0.35rem;
     font-weight: 800;
     letter-spacing: 0.1em;
@@ -474,21 +481,23 @@ const aboutHighlightBadges = [
     100% {
       transform: scale(1);
       box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.52),
-        inset 0 -28px 48px color-mix(in srgb, var(--about-accent) 16%, rgba(10, 12, 18, 0.18)),
+        inset 0 1px 0 rgba(255, 255, 255, 0.62),
+        inset 0 -28px 52px color-mix(in srgb, var(--about-accent) 16%, rgba(10, 12, 18, 0.18)),
         0 0 0 1px rgba(255, 255, 255, 0.08),
         0 18px 42px rgba(0, 0, 0, 0.24),
-        0 0 28px color-mix(in srgb, var(--about-accent) 18%, transparent);
+        0 0 44px color-mix(in srgb, var(--about-accent) 42%, transparent),
+        0 0 96px color-mix(in srgb, var(--about-accent) 20%, transparent);
     }
 
     50% {
       transform: scale(1.025);
       box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.62),
-        inset 0 -24px 54px color-mix(in srgb, var(--about-accent) 22%, rgba(10, 12, 18, 0.16)),
-        0 0 0 1px rgba(255, 255, 255, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.72),
+        inset 0 -24px 58px color-mix(in srgb, var(--about-accent) 24%, rgba(10, 12, 18, 0.16)),
+        0 0 0 1px color-mix(in srgb, var(--about-accent) 28%, rgba(255, 255, 255, 0.12)),
         0 20px 48px rgba(0, 0, 0, 0.26),
-        0 0 38px color-mix(in srgb, var(--about-accent) 28%, transparent);
+        0 0 58px color-mix(in srgb, var(--about-accent) 58%, transparent),
+        0 0 120px color-mix(in srgb, var(--about-accent) 28%, transparent);
     }
   }
 
@@ -513,8 +522,8 @@ const aboutHighlightBadges = [
     }
 
     50% {
-      opacity: 0.7;
-      transform: scale(1.08);
+      opacity: 0.76;
+      transform: scale(1.1);
     }
   }
 
