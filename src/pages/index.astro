@@ -159,41 +159,8 @@ const aboutHighlightBadges = [
   </SectionShell>
 
   <SectionShell
-    id="app-purpose"
-    eyebrow="05 / Personal App"
-    title="Andy Job Search Assistant"
-    intro="A personal, local workflow that helps organize job-search related email activity while keeping access limited to my own account."
-  >
-    <div class="max-w-4xl space-y-5 text-sm leading-7 text-white/72 sm:text-base" data-stagger>
-      <p data-reveal-child>
-        Andy Job Search Assistant is a personal productivity application used by Andy Araya to support his job search process.
-        Its purpose is to help review, classify, and organize emails related to job applications, recruiter conversations,
-        interview scheduling, follow-ups, and opportunity tracking.
-      </p>
-      <p data-reveal-child>
-        The application is intended for local, personal use with Andy Araya's own Google account. It does not provide a public
-        service, does not sell user data, and does not request access beyond what is needed to help manage job-search email workflows.
-      </p>
-      <div class="app-purpose-grid pt-2" data-reveal-child>
-        <div class="app-purpose-item glass-card">
-          <span>Purpose</span>
-          <p>Organize job search emails, reminders, and follow-up context.</p>
-        </div>
-        <div class="app-purpose-item glass-card">
-          <span>Data use</span>
-          <p>Process authorized Gmail data only for the requested personal workflow.</p>
-        </div>
-        <div class="app-purpose-item glass-card">
-          <span>Access</span>
-          <p>Limited to Andy Araya's own Google account during local development.</p>
-        </div>
-      </div>
-    </div>
-  </SectionShell>
-
-  <SectionShell
     id="contact"
-    eyebrow="06 / Contact"
+    eyebrow="05 / Contact"
     title="Let's build together"
     intro="Seeking opportunities to contribute, lead and help organizations move faster through better systems and technology."
   >
@@ -253,34 +220,6 @@ const aboutHighlightBadges = [
       0 12px 30px rgba(0, 0, 0, 0.22);
   }
 
-  .app-purpose-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
-  }
-
-  .app-purpose-item {
-    min-height: 8.4rem;
-    padding: 1rem;
-    border-radius: 1rem;
-  }
-
-  .app-purpose-item span {
-    display: block;
-    color: rgba(103, 232, 249, 0.78);
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.14em;
-    line-height: 1;
-    text-transform: uppercase;
-  }
-
-  .app-purpose-item p {
-    margin-top: 0.8rem;
-    color: rgba(255, 255, 255, 0.72);
-    line-height: 1.7;
-  }
-
   .contact-grid {
     display: flex;
     flex-wrap: wrap;
@@ -336,14 +275,6 @@ const aboutHighlightBadges = [
   }
 
   @media (max-width: 639px) {
-    .app-purpose-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .app-purpose-item {
-      min-height: auto;
-    }
-
     .contact-grid {
       gap: 0.85rem;
       align-items: flex-start;
