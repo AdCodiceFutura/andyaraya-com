@@ -67,10 +67,34 @@ const aboutHighlightBadges = [
 ---
 
 <BaseLayout
-  title="Andy Araya | Creative Technologist, AI Systems Builder, Digital Product Strategist"
-  description="Andy Araya's professional website: a dark cinematic portfolio for creative technology, AI automation, product strategy, and digital leadership."
+  title="Andy Job Search Assistant | Andy Araya"
+  description="Andy Job Search Assistant is Andy Araya's personal local app for organizing job-search related Gmail messages, recruiter conversations, interviews, reminders, and follow-ups."
 >
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Andy Job Search Assistant',
+    applicationCategory: 'ProductivityApplication',
+    operatingSystem: 'Local development environment',
+    creator: {
+      '@type': 'Person',
+      name: 'Andy Araya',
+      url: 'https://andyaraya.com/'
+    },
+    description:
+      'Andy Job Search Assistant is a personal local application used by Andy Araya to organize job-search related Gmail messages, recruiter conversations, interview scheduling, reminders, and follow-ups.',
+    url: 'https://andyaraya.com/'
+  })}></script>
   <Hero />
+
+  <section class="sr-only" aria-labelledby="app-purpose-summary">
+    <h2 id="app-purpose-summary">Andy Job Search Assistant</h2>
+    <p>
+      Andy Job Search Assistant is a personal local application used by Andy Araya to organize job-search related Gmail messages,
+      recruiter conversations, interview scheduling, reminders, and follow-ups. The app is intended for Andy Araya's own Google
+      account and supports his job search workflow.
+    </p>
+  </section>
 
   <SectionShell
     id="credentials"
