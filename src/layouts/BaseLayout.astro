@@ -32,7 +32,10 @@ const {
     <footer class="glass-nav mt-8 border-t border-white/8">
       <div class="mx-auto flex w-full max-w-7xl flex-col gap-3 px-4 py-8 text-sm text-white/50 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
         <p>Andy Araya</p>
-        <p>Built with Astro, TypeScript, Tailwind CSS, and MDX.</p>
+        <nav class="flex flex-wrap gap-x-5 gap-y-2" aria-label="Legal">
+          <a class="transition hover:text-white" href="/privacy-policy">Privacy Policy</a>
+          <a class="transition hover:text-white" href="/terms-of-service">Terms of Service</a>
+        </nav>
       </div>
     </footer>
     <script type="module">

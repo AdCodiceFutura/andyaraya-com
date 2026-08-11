@@ -4,7 +4,7 @@ import { navigation } from '../data/navigation';
 
 <header class="glass-nav sticky top-0 z-50 border-b border-white/8">
   <div class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-    <a href="#home" class="flex items-center gap-3 text-sm font-semibold tracking-[0.14em] text-white/90">
+    <a href="/#home" class="flex items-center gap-3 text-sm font-semibold tracking-[0.14em] text-white/90">
       <span class="glass-card flex h-11 w-[4.2rem] items-center justify-center overflow-hidden rounded-2xl px-2">
         <img
           src="/images/branding/Logo_AndyAraya.svg"
@@ -18,7 +18,7 @@ import { navigation } from '../data/navigation';
     <nav class="hidden items-center gap-6 lg:flex" aria-label="Primary">
       {navigation.map((item) => (
         <a
-          href={item.href}
+          href={`/${item.href}`}
           class="rounded-full px-2 py-1 text-sm text-white/70 transition hover:bg-white/[0.05] hover:text-white"
         >
           {item.label}
@@ -34,7 +34,7 @@ import { navigation } from '../data/navigation';
         <nav class="grid gap-1" aria-label="Mobile">
           {navigation.map((item) => (
             <a
-              href={item.href}
+              href={`/${item.href}`}
               class="rounded-2xl px-3 py-3 text-sm text-white/80 transition hover:bg-white/6 hover:text-white"
             >
               {item.label}
