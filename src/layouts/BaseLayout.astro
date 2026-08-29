@@ -4,12 +4,13 @@ import '../styles/global.css';
 
 const {
   title = 'Andy Araya',
-  description = 'Creative Technologist, AI Systems Builder, and Digital Product Strategist.'
+  description = 'Creative Technologist, AI Systems Builder, and Digital Product Strategist.',
+  lang = 'en'
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,7 +27,7 @@ const {
     >
       Skip to content
     </a>
-    <SiteHeader />
+    <SiteHeader locale={lang} />
     <main>
       <slot />
     </main>
@@ -34,9 +35,9 @@ const {
       <div class="mx-auto flex w-full max-w-7xl flex-col gap-3 px-4 py-8 text-sm text-white/50 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
         <p>Andy Araya</p>
         <nav class="flex flex-wrap gap-x-5 gap-y-2" aria-label="Legal">
-          <a class="transition hover:text-white" href="/andy-araya-ai-profile.md">AI-readable profile</a>
-          <a class="transition hover:text-white" href="/privacy-policy">Privacy Policy</a>
-          <a class="transition hover:text-white" href="/terms-of-service">Terms of Service</a>
+          <a class="transition hover:text-white" href="/andy-araya-ai-profile.md">{lang === 'es' ? 'Perfil legible para IA' : 'AI-readable profile'}</a>
+          <a class="transition hover:text-white" href="/privacy-policy">{lang === 'es' ? 'Política de privacidad' : 'Privacy Policy'}</a>
+          <a class="transition hover:text-white" href="/terms-of-service">{lang === 'es' ? 'Términos de servicio' : 'Terms of Service'}</a>
         </nav>
       </div>
     </footer>

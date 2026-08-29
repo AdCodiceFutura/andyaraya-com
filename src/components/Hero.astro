@@ -1,5 +1,11 @@
 ---
 import { roles } from '../data/profile';
+
+const { locale = 'en' } = Astro.props;
+const isSpanish = locale === 'es';
+const localizedRoles = isSpanish
+  ? ['Tecnólogo creativo', 'Constructor de sistemas de IA', 'Estratega de productos digitales']
+  : roles;
 ---
 
 <section id="home" class="hero-background relative overflow-hidden">
@@ -13,27 +19,27 @@ import { roles } from '../data/profile';
       <div class="space-y-4 sm:space-y-5 lg:grid lg:grid-cols-3 lg:gap-8 lg:space-y-0">
         <div class="space-y-4 sm:space-y-5 lg:text-center">
           <h1 class="hero-title max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl lg:mx-auto lg:text-[3.1rem] lg:leading-[0.98]">
-            <span class="hero-title-text hero-title-violet">{roles[0]}</span>
+            <span class="hero-title-text hero-title-violet">{localizedRoles[0]}</span>
           </h1>
           <div class="glass-edge h-px w-16 bg-white/12 lg:mx-auto"></div>
         </div>
 
         <div class="space-y-4 sm:space-y-5 lg:text-center">
           <p class="hero-title hero-title-delay-2 max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl lg:mx-auto lg:text-[3.1rem] lg:leading-[0.98]">
-            <span class="hero-title-text hero-title-cyan">{roles[1]}</span>
+            <span class="hero-title-text hero-title-cyan">{localizedRoles[1]}</span>
           </p>
           <div class="glass-edge h-px w-16 bg-white/12 lg:mx-auto"></div>
         </div>
 
         <div class="space-y-4 sm:space-y-5 lg:text-center">
           <p class="hero-title hero-title-delay-3 max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl lg:mx-auto lg:text-[3.1rem] lg:leading-[0.98]">
-            <span class="hero-title-text hero-title-green">{roles[2]}</span>
+            <span class="hero-title-text hero-title-green">{localizedRoles[2]}</span>
           </p>
         </div>
       </div>
 
       <p class="hero-copy mt-10 max-w-3xl text-base leading-8 text-white/72 sm:text-lg lg:mx-auto lg:mt-8 lg:max-w-4xl lg:text-center lg:text-[1.05rem] lg:leading-8">
-        Designing systems that transform complexity into measurable business value
+        {isSpanish ? 'Diseñando sistemas que transforman la complejidad en valor de negocio medible' : 'Designing systems that transform complexity into measurable business value'}
       </p>
     </div>
   </div>

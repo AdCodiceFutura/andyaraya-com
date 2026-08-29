@@ -1,6 +1,8 @@
 ---
 import { mindmapGraph } from '../data/knowledge';
 
+const { locale = 'en' } = Astro.props;
+
 const graphPayload = {
   center: mindmapGraph.center,
   categories: mindmapGraph.categories,
@@ -10,7 +12,7 @@ const graphPayload = {
 
 <div class="knowledge-graph-shell glass-surface rounded-[2rem] p-1.5" data-reveal>
   <div class="knowledge-graph-stage glass-stage relative min-h-[34rem] overflow-hidden rounded-[1.6rem] sm:min-h-[38rem] lg:min-h-[42rem]">
-    <canvas class="knowledge-graph-canvas" aria-label="Andy Araya knowledge graph"></canvas>
+    <canvas class="knowledge-graph-canvas" aria-label={locale === 'es' ? 'Mapa de conocimiento de Andy Araya' : 'Andy Araya knowledge graph'}></canvas>
 
     <script type="application/json" data-knowledge-graph set:html={JSON.stringify(graphPayload)} />
   </div>

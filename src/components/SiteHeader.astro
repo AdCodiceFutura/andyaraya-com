@@ -1,10 +1,19 @@
 ---
 import { navigation } from '../data/navigation';
+
+const { locale = 'en' } = Astro.props;
+const isSpanish = locale === 'es';
+const labels = isSpanish
+  ? ['Inicio', 'Credenciales', 'Mapa mental', 'Lecturas estratégicas', 'Acerca de', 'Contacto']
+  : navigation.map((item) => item.label);
+const localizedNavigation = navigation.map((item, index) => ({ ...item, label: labels[index] }));
+const languageLabel = isSpanish ? 'EN' : 'ES';
+const languageHref = isSpanish ? '/' : '/es';
 ---
 
 <header class="glass-nav sticky top-0 z-50 border-b border-white/8">
   <div class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-    <a href="/#home" class="flex items-center gap-3 text-sm font-semibold tracking-[0.14em] text-white/90">
+    <a href={`${isSpanish ? '/es' : '/'}#home`} class="flex items-center gap-3 text-sm font-semibold tracking-[0.14em] text-white/90">
       <span class="glass-card flex h-11 w-[4.2rem] items-center justify-center overflow-hidden rounded-2xl px-2">
         <img
           src="/images/branding/Logo_AndyAraya.svg"
@@ -16,30 +25,32 @@ import { navigation } from '../data/navigation';
     </a>
 
     <nav class="hidden items-center gap-6 lg:flex" aria-label="Primary">
-      {navigation.map((item) => (
+      {localizedNavigation.map((item) => (
         <a
-          href={`/${item.href}`}
+          href={isSpanish ? `/es${item.href}` : `/${item.href}`}
           class="rounded-full px-2 py-1 text-sm text-white/70 transition hover:bg-white/[0.05] hover:text-white"
         >
           {item.label}
         </a>
       ))}
+      <a href={languageHref} hreflang={isSpanish ? 'en' : 'es'} class="rounded-full border border-white/15 px-2.5 py-1 text-xs font-semibold tracking-[0.12em] text-white/80 transition hover:border-cyan-300/60 hover:text-white">{languageLabel}</a>
     </nav>
 
     <details class="relative lg:hidden">
       <summary class="glass-button list-none rounded-full px-4 py-2 text-sm text-white/85">
-        Menu
+        {isSpanish ? 'Menú' : 'Menu'}
       </summary>
       <div class="glass-surface absolute right-0 mt-3 w-[min(18rem,calc(100vw-2rem))] rounded-3xl p-3 shadow-2xl">
         <nav class="grid gap-1" aria-label="Mobile">
-          {navigation.map((item) => (
+          {localizedNavigation.map((item) => (
             <a
-              href={`/${item.href}`}
+              href={isSpanish ? `/es${item.href}` : `/${item.href}`}
               class="rounded-2xl px-3 py-3 text-sm text-white/80 transition hover:bg-white/6 hover:text-white"
             >
               {item.label}
             </a>
           ))}
+          <a href={languageHref} hreflang={isSpanish ? 'en' : 'es'} class="rounded-2xl px-3 py-3 text-sm font-semibold text-cyan-200 transition hover:bg-white/6 hover:text-white">{isSpanish ? 'English' : 'Español'}</a>
         </nav>
       </div>
     </details>

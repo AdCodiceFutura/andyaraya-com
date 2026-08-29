@@ -1,5 +1,15 @@
 ---
-import { books } from '../data/books';
+import { books as englishBooks } from '../data/books';
+import { spanishBookContent } from '../data/books-es';
+
+const { locale = 'en' } = Astro.props;
+const isSpanish = locale === 'es';
+const books = isSpanish
+  ? englishBooks.map((book, index) => ({ ...book, ...spanishBookContent[index] }))
+  : englishBooks;
+const labels = isSpanish
+  ? { navigation: 'Navegación de libros', previous: 'Libro anterior', next: 'Libro siguiente', info: 'Información del libro', quote: 'Cita favorita', takeaways: 'Ideas clave', cover: 'Portada de' }
+  : { navigation: 'Book navigation', previous: 'Previous book', next: 'Next book', info: 'Book Info', quote: 'Favorite Quote', takeaways: 'Key Takeaways', cover: 'Cover of' };
 ---
 
 <section class="book-viewer" data-book-viewer data-reveal-child>
@@ -7,39 +17,39 @@ import { books } from '../data/books';
     <div class="book-viewer__cover-shell" aria-live="polite">
       <img
         src={books[0].cover}
-        alt={`Cover of ${books[0].title}`}
+        alt={`${labels.cover} ${books[0].title}`}
         class="book-viewer__cover"
         data-book-cover
         loading="lazy"
       />
     </div>
 
-    <div class="book-viewer__controls" aria-label="Book navigation">
-      <button type="button" class="book-viewer__step" data-book-step="-1" aria-label="Previous book">
+    <div class="book-viewer__controls" aria-label={labels.navigation}>
+      <button type="button" class="book-viewer__step" data-book-step="-1" aria-label={labels.previous}>
         <span class="book-viewer__chevron book-viewer__chevron--left" aria-hidden="true"></span>
       </button>
       <p class="book-viewer__count" data-book-count>01 / {String(books.length).padStart(2, '0')}</p>
-      <button type="button" class="book-viewer__step" data-book-step="1" aria-label="Next book">
+      <button type="button" class="book-viewer__step" data-book-step="1" aria-label={labels.next}>
         <span class="book-viewer__chevron book-viewer__chevron--right" aria-hidden="true"></span>
       </button>
     </div>
   </div>
 
   <article class="book-viewer__info" data-book-info>
-    <p class="book-viewer__column-title">Book Info</p>
+    <p class="book-viewer__column-title">{labels.info}</p>
     <p class="book-viewer__category" data-book-category>{books[0].category}</p>
     <h3 data-book-title>{books[0].title}</h3>
     <p class="book-viewer__author" data-book-author>{books[0].author}</p>
     <p class="book-viewer__note" data-book-note>{books[0].note}</p>
 
     <div class="book-viewer__quote">
-      <p>Favorite Quote</p>
+      <p>{labels.quote}</p>
       <span data-book-idea>{books[0].keyIdea}</span>
     </div>
   </article>
 
   <aside class="book-viewer__takeaways">
-    <p class="book-viewer__column-title">Key Takeaways</p>
+    <p class="book-viewer__column-title">{labels.takeaways}</p>
     <ol>
       {books[0].takeaways.map((takeaway, index) => (
         <li>
@@ -51,7 +61,7 @@ import { books } from '../data/books';
   </aside>
 </section>
 
-<script define:vars={{ books }}>
+<script define:vars={{ books, labels }}>
   const bookWrapIndex = (index, total) => (index + total) % total;
 
   document.querySelectorAll('[data-book-viewer]').forEach((viewer) => {
@@ -82,7 +92,7 @@ import { books } from '../data/books';
         }
       });
       count.textContent = `${String(activeIndex + 1).padStart(2, '0')} / ${String(books.length).padStart(2, '0')}`;
-      cover.alt = `Cover of ${book.title}`;
+      cover.alt = `${labels.cover} ${book.title}`;
       cover.src = book.cover;
 
       cover.animate(

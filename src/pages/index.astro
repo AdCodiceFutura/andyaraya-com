@@ -9,7 +9,16 @@ import ExperienceDial from '../components/ExperienceDial.astro';
 import { educationEntries, personalStory } from '../data/about';
 import { contactChannels } from '../data/contact';
 
+const { locale = 'en' } = Astro.props;
+const isSpanish = locale === 'es';
+
 const personalStoryParagraphs = personalStory.split('\n\n');
+const personalStoryEs = `No empecé en el desarrollo de software.
+
+Mi trayectoria abarca liderazgo creativo, branding, estrategia digital, gestión de proyectos y resolución de problemas orientada al negocio. Con el tiempo, me interesé cada vez más por los sistemas detrás de los productos, las operaciones y la toma de decisiones.
+
+Esa curiosidad me llevó al desarrollo de software, la automatización y la inteligencia artificial. Hoy combino pensamiento creativo, ejecución técnica y estrategia de negocio para diseñar sistemas que reducen fricción, mejoran la eficiencia y crean valor medible.`.split('\n\n');
+const storyParagraphs = isSpanish ? personalStoryEs : personalStoryParagraphs;
 const educationBadge = educationEntries[0];
 const contactIcons = {
   Email: {
@@ -39,41 +48,42 @@ const aboutHighlightBadges = [
     mark: 'ED',
     title: educationBadge.title,
     detail: educationBadge.issuer,
-    status: 'Education',
+    status: isSpanish ? 'Educación' : 'Education',
     accent: '#ffb000'
   },
   {
     mark: '10+',
-    title: 'Creative & Digital Projects',
-    detail: '10+ years leading',
-    status: 'Leadership',
+    title: isSpanish ? 'Proyectos creativos y digitales' : 'Creative & Digital Projects',
+    detail: isSpanish ? '10+ años liderando' : '10+ years leading',
+    status: isSpanish ? 'Liderazgo' : 'Leadership',
     accent: '#00e5ff'
   },
   {
     mark: 'PD',
-    title: 'Project Director',
-    detail: 'PROSESO since 2021',
-    status: 'Current Role',
+    title: isSpanish ? 'Director de proyectos' : 'Project Director',
+    detail: isSpanish ? 'PROSESO desde 2021' : 'PROSESO since 2021',
+    status: isSpanish ? 'Rol actual' : 'Current Role',
     accent: '#9d4dff'
   },
   {
     mark: 'MX',
-    title: 'Multinational Clients',
+    title: isSpanish ? 'Clientes multinacionales' : 'Multinational Clients',
     detail: 'Unilever & Essity',
-    status: 'Experience',
+    status: isSpanish ? 'Experiencia' : 'Experience',
     accent: '#00ffae'
   }
 ] as const;
 ---
 
 <BaseLayout
-  title="Andy Job Search Assistant | Andy Araya"
-  description="Andy Job Search Assistant is Andy Araya's personal local app for organizing job-search related Gmail messages, recruiter conversations, interviews, reminders, and follow-ups."
+  title={isSpanish ? 'Andy Araya | Sistemas de IA y estrategia digital' : 'Andy Job Search Assistant | Andy Araya'}
+  description={isSpanish ? 'Andy Araya diseña sistemas de IA, automatizaciones y productos digitales que crean valor de negocio medible.' : "Andy Job Search Assistant is Andy Araya's personal local app for organizing job-search related Gmail messages, recruiter conversations, interviews, reminders, and follow-ups."}
+  lang={locale}
 >
   <script slot="head" type="application/ld+json" set:html={JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'Andy Job Search Assistant',
+    name: isSpanish ? 'Andy Araya — Sistemas de IA y estrategia digital' : 'Andy Job Search Assistant',
     applicationCategory: 'ProductivityApplication',
     operatingSystem: 'Local development environment',
     creator: {
@@ -81,58 +91,59 @@ const aboutHighlightBadges = [
       name: 'Andy Araya',
       url: 'https://andyaraya.com/'
     },
-    description:
-      'Andy Job Search Assistant is a personal local application used by Andy Araya to organize job-search related Gmail messages, recruiter conversations, interview scheduling, reminders, and follow-ups.',
+    description: isSpanish
+      ? 'Andy Araya diseña sistemas de IA, automatizaciones y productos digitales que crean valor de negocio medible.'
+      : 'Andy Job Search Assistant is a personal local application used by Andy Araya to organize job-search related Gmail messages, recruiter conversations, interview scheduling, reminders, and follow-ups.',
     url: 'https://andyaraya.com/'
   })}></script>
-  <Hero />
+  <Hero locale={locale} />
 
   <section class="sr-only" aria-labelledby="app-purpose-summary">
-    <h2 id="app-purpose-summary">Andy Job Search Assistant</h2>
+    <h2 id="app-purpose-summary">{isSpanish ? 'Perfil profesional de Andy Araya' : 'Andy Job Search Assistant'}</h2>
     <p>
-      Andy Job Search Assistant is a personal local application used by Andy Araya to organize job-search related Gmail messages,
-      recruiter conversations, interview scheduling, reminders, and follow-ups. The app is intended for Andy Araya's own Google
-      account and supports his job search workflow.
+      {isSpanish
+        ? 'Andy Araya diseña sistemas de IA, automatizaciones y productos digitales para empresas que buscan crear valor de negocio medible.'
+        : "Andy Job Search Assistant is a personal local application used by Andy Araya to organize job-search related Gmail messages, recruiter conversations, interview scheduling, reminders, and follow-ups. The app is intended for Andy Araya's own Google account and supports his job search workflow."}
     </p>
   </section>
 
   <SectionShell
     id="credentials"
-    eyebrow="01 / Credentials"
-    title="Verified foundations for building modern systems"
-    intro="Selected credentials supporting the intersection of business strategy, software development, AI systems and digital product creation."
+    eyebrow={isSpanish ? '01 / Credenciales' : '01 / Credentials'}
+    title={isSpanish ? 'Bases verificadas para construir sistemas modernos' : 'Verified foundations for building modern systems'}
+    intro={isSpanish ? 'Credenciales seleccionadas que respaldan la intersección entre estrategia de negocio, desarrollo de software, sistemas de IA y creación de productos digitales.' : 'Selected credentials supporting the intersection of business strategy, software development, AI systems and digital product creation.'}
   >
-    <CredentialsSection />
+    <CredentialsSection locale={locale} />
   </SectionShell>
 
   <SectionShell
     id="mindmap"
-    eyebrow="02 / Mindmap"
-    title="The architecture of my thinking"
-    intro="Every product, workflow and automation starts with a network of connected ideas. This map reveals the disciplines and concepts that influence my work."
+    eyebrow={isSpanish ? '02 / Mapa mental' : '02 / Mindmap'}
+    title={isSpanish ? 'La arquitectura de mi pensamiento' : 'The architecture of my thinking'}
+    intro={isSpanish ? 'Cada producto, flujo de trabajo y automatización comienza con una red de ideas conectadas. Este mapa revela las disciplinas y conceptos que influyen en mi trabajo.' : 'Every product, workflow and automation starts with a network of connected ideas. This map reveals the disciplines and concepts that influence my work.'}
   >
-    <MindmapGraph />
+    <MindmapGraph locale={locale} />
   </SectionShell>
 
   <SectionShell
     id="books"
-    eyebrow="03 / Strategic Reading"
-    title="A strategic reading system behind the work"
-    intro="An ongoing collection of ideas that continue to shape how I think about strategy, systems, product, AI and long-term value creation."
+    eyebrow={isSpanish ? '03 / Lecturas estratégicas' : '03 / Strategic Reading'}
+    title={isSpanish ? 'Un sistema de lectura estratégica detrás del trabajo' : 'A strategic reading system behind the work'}
+    intro={isSpanish ? 'Una colección continua de ideas que sigue dando forma a cómo pienso sobre estrategia, sistemas, producto, IA y creación de valor a largo plazo.' : 'An ongoing collection of ideas that continue to shape how I think about strategy, systems, product, AI and long-term value creation.'}
   >
-    <BooksCarousel />
+    <BooksCarousel locale={locale} />
   </SectionShell>
 
   <SectionShell
     id="about"
-    eyebrow="04 / Why I think this way"
-    title="Connecting the dots"
-    intro="A multidisciplinary path through design, business, technology and systems thinking."
+    eyebrow={isSpanish ? '04 / Por qué pienso así' : '04 / Why I think this way'}
+    title={isSpanish ? 'Conectando los puntos' : 'Connecting the dots'}
+    intro={isSpanish ? 'Un recorrido multidisciplinario por el diseño, los negocios, la tecnología y el pensamiento sistémico.' : 'A multidisciplinary path through design, business, technology and systems thinking.'}
   >
     <div class="space-y-7" data-stagger>
       <article class="max-w-4xl" data-reveal-child>
         <div class="mt-4 max-w-3xl space-y-5 text-sm leading-7 text-white/72 sm:text-base">
-          {personalStoryParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+          {storyParagraphs.map((paragraph) => <p>{paragraph}</p>)}
         </div>
       </article>
 
@@ -154,20 +165,20 @@ const aboutHighlightBadges = [
         </div>
       </div>
 
-      <ExperienceDial />
+      <ExperienceDial locale={locale} />
     </div>
   </SectionShell>
 
   <SectionShell
     id="contact"
-    eyebrow="05 / Contact"
-    title="Let's build together"
-    intro="Seeking opportunities to contribute, lead and help organizations move faster through better systems and technology."
+    eyebrow={isSpanish ? '05 / Contacto' : '05 / Contact'}
+    title={isSpanish ? 'Construyamos juntos' : "Let's build together"}
+    intro={isSpanish ? 'Busco oportunidades para aportar, liderar y ayudar a organizaciones a avanzar más rápido mediante mejores sistemas y tecnología.' : 'Seeking opportunities to contribute, lead and help organizations move faster through better systems and technology.'}
   >
     <div class="max-w-6xl space-y-6" data-stagger>
       <div class="space-y-4 text-lg leading-8 text-white/72" data-reveal-child>
-        <p>My strongest work happens when strategy, execution and technology are aligned around a shared goal.</p>
-        <p>I am interested in joining teams that value systems thinking, continuous improvement and practical innovation.</p>
+        <p>{isSpanish ? 'Mi trabajo más sólido ocurre cuando estrategia, ejecución y tecnología se alinean alrededor de un objetivo común.' : 'My strongest work happens when strategy, execution and technology are aligned around a shared goal.'}</p>
+        <p>{isSpanish ? 'Me interesa colaborar con equipos que valoren el pensamiento sistémico, la mejora continua y la innovación práctica.' : 'I am interested in joining teams that value systems thinking, continuous improvement and practical innovation.'}</p>
       </div>
       <div class="contact-grid" data-stagger>
         {contactChannels.map((channel) => (
