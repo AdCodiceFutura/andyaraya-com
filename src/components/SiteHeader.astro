@@ -33,6 +33,7 @@ const languageHref = isSpanish ? '/' : '/es';
           {item.label}
         </a>
       ))}
+      <a href={isSpanish ? '/es/faq/' : '/faq/'} class="rounded-full px-2 py-1 text-sm text-white/70 transition hover:bg-white/[0.05] hover:text-white">FAQ</a>
       <a href={languageHref} hreflang={isSpanish ? 'en' : 'es'} class="rounded-full border border-white/15 px-2.5 py-1 text-xs font-semibold tracking-[0.12em] text-white/80 transition hover:border-cyan-300/60 hover:text-white">{languageLabel}</a>
     </nav>
 
@@ -50,6 +51,7 @@ const languageHref = isSpanish ? '/' : '/es';
               {item.label}
             </a>
           ))}
+          <a href={isSpanish ? '/es/faq/' : '/faq/'} class="rounded-2xl px-3 py-3 text-sm text-white/80 transition hover:bg-white/6 hover:text-white">FAQ</a>
           <a href={languageHref} hreflang={isSpanish ? 'en' : 'es'} class="rounded-2xl px-3 py-3 text-sm font-semibold text-cyan-200 transition hover:bg-white/6 hover:text-white">{isSpanish ? 'English' : 'Español'}</a>
         </nav>
       </div>

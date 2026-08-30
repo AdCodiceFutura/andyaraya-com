@@ -35,6 +35,7 @@ const {
       <div class="mx-auto flex w-full max-w-7xl flex-col gap-3 px-4 py-8 text-sm text-white/50 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
         <p>Andy Araya</p>
         <nav class="flex flex-wrap gap-x-5 gap-y-2" aria-label="Legal">
+          <a class="transition hover:text-white" href={lang === 'es' ? '/es/faq/' : '/faq/'}>FAQ</a>
           <a class="transition hover:text-white" href="/andy-araya-ai-profile.md">{lang === 'es' ? 'Perfil legible para IA' : 'AI-readable profile'}</a>
           <a class="transition hover:text-white" href="/privacy-policy">{lang === 'es' ? 'Política de privacidad' : 'Privacy Policy'}</a>
           <a class="transition hover:text-white" href="/terms-of-service">{lang === 'es' ? 'Términos de servicio' : 'Terms of Service'}</a>
