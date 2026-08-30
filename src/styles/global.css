@@ -1128,7 +1128,7 @@ body::before {
   background-image: url('/images/branding/Hero_Image.png');
   background-position: center bottom;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100% auto;
 }
 
 .hero-background-shade {
