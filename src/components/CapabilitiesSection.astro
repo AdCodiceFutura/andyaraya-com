@@ -1,0 +1,83 @@
+---
+const { locale = 'en' } = Astro.props;
+const isSpanish = locale === 'es';
+
+const content = isSpanish
+  ? {
+      categories: [
+        {
+          label: 'IA y automatización',
+          description: 'Sistemas que conectan información, decisiones y ejecución.',
+          skills: ['n8n', 'APIs', 'ChatGPT', 'Claude', 'Codex', 'Agentes de IA', 'Integraciones']
+        },
+        {
+          label: 'Desarrollo de software',
+          description: 'De la interfaz y la lógica de negocio a herramientas internas y productos digitales.',
+          skills: ['Python', 'JavaScript', 'HTML', 'CSS', 'Java', 'Desarrollo web', 'Sistemas a medida']
+        },
+        {
+          label: 'Diseño y producto',
+          description: 'Claridad visual y experiencia de usuario al servicio de la adopción.',
+          skills: ['Diseño gráfico', 'Branding', 'UX/UI', 'Productos digitales', 'Prototipado', 'Comunicación visual']
+        },
+        {
+          label: 'Estrategia y dirección',
+          description: 'Prioridad, coordinación y entrega alrededor de un resultado de negocio.',
+          skills: ['Dirección de proyectos', 'Estrategia de negocio', 'Gestión de stakeholders', 'Procesos', 'Roadmaps', 'Transformación digital']
+        }
+      ],
+      conclusion: 'No son capacidades aisladas: las conecto para convertir una oportunidad de negocio en una solución que un equipo pueda usar, mantener y escalar.'
+    }
+  : {
+      categories: [
+        {
+          label: 'AI and automation',
+          description: 'Systems that connect information, decisions, and execution.',
+          skills: ['n8n', 'APIs', 'ChatGPT', 'Claude', 'Codex', 'AI agents', 'Integrations']
+        },
+        {
+          label: 'Software development',
+          description: 'From interface and business logic to internal tools and digital products.',
+          skills: ['Python', 'JavaScript', 'HTML', 'CSS', 'Java', 'Web development', 'Custom systems']
+        },
+        {
+          label: 'Design and product',
+          description: 'Visual clarity and user experience in service of adoption.',
+          skills: ['Graphic design', 'Branding', 'UX/UI', 'Digital products', 'Prototyping', 'Visual communication']
+        },
+        {
+          label: 'Strategy and direction',
+          description: 'Priority, coordination, and delivery around a business outcome.',
+          skills: ['Project direction', 'Business strategy', 'Stakeholder management', 'Processes', 'Roadmaps', 'Digital transformation']
+        }
+      ],
+      conclusion: 'These are not isolated capabilities: I connect them to turn a business opportunity into a solution a team can use, maintain, and scale.'
+    };
+---
+
+<div class="capability-grid" data-stagger>
+  {content.categories.map((category, index) => (
+    <article class="capability-card glass-card rounded-[1.35rem]" data-reveal-child>
+      <span class="capability-index">0{index + 1}</span>
+      <h3>{category.label}</h3>
+      <p>{category.description}</p>
+      <ul aria-label={category.label}>
+        {category.skills.map((skill) => <li>{skill}</li>)}
+      </ul>
+    </article>
+  ))}
+</div>
+<p class="capability-conclusion" data-reveal-child>{content.conclusion}</p>
+
+<style>
+  .capability-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .capability-card { position: relative; min-height: 16.25rem; padding: 1.5rem; overflow: hidden; border-color: rgba(255, 255, 255, 0.11); background: linear-gradient(145deg, rgba(255, 255, 255, 0.065), rgba(255,255,255,0.018) 55%, rgba(34, 211, 238, 0.055)); }
+  .capability-card::after { content: ''; position: absolute; inset: auto -2rem -3rem auto; width: 8rem; height: 8rem; border-radius: 999px; background: radial-gradient(circle, rgba(157, 77, 255, 0.2), transparent 68%); pointer-events: none; }
+  .capability-index { display: block; color: rgba(34, 211, 238, 0.82); font-size: 0.75rem; font-weight: 750; letter-spacing: 0.14em; }
+  .capability-card h3 { margin-top: 0.9rem; color: white; font-size: 1.2rem; font-weight: 650; line-height: 1.2; }
+  .capability-card p { max-width: 29rem; margin-top: 0.6rem; color: rgba(255,255,255,0.66); font-size: 0.94rem; line-height: 1.58; }
+  .capability-card ul { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.15rem; padding: 0; list-style: none; }
+  .capability-card li { border: 1px solid rgba(255,255,255,0.13); border-radius: 999px; padding: 0.33rem 0.58rem; background: rgba(5, 5, 7, 0.35); color: rgba(255,255,255,0.8); font-size: 0.77rem; line-height: 1; }
+  .capability-conclusion { max-width: 54rem; margin-top: 1.75rem; padding-left: 1.15rem; border-left: 2px solid rgba(157, 77, 255, 0.72); color: rgba(255,255,255,0.72); font-size: 1rem; line-height: 1.7; }
+  @media (max-width: 760px) { .capability-grid { grid-template-columns: 1fr; } .capability-card { min-height: auto; } }
+</style>

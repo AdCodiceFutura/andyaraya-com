@@ -7,6 +7,7 @@ import CredentialsSection from '../components/CredentialsSection.astro';
 import BooksCarousel from '../components/BooksCarousel.astro';
 import ExperienceDial from '../components/ExperienceDial.astro';
 import ServicesSection from '../components/ServicesSection.astro';
+import CapabilitiesSection from '../components/CapabilitiesSection.astro';
 import { educationEntries, personalStory } from '../data/about';
 import { contactChannels } from '../data/contact';
 
@@ -113,8 +114,17 @@ const aboutHighlightBadges = [
   </SectionShell>
 
   <SectionShell
+    id="capabilities"
+    eyebrow={isSpanish ? '02 / Capacidades conectadas' : '02 / Connected capabilities'}
+    title={isSpanish ? 'La combinación detrás de cada solución' : 'The combination behind every solution'}
+    intro={isSpanish ? 'Tecnología, diseño y dirección de proyectos no compiten entre sí: se refuerzan para llevar una idea desde la estrategia hasta la operación.' : 'Technology, design, and project direction do not compete with each other: they reinforce one another to take an idea from strategy to operations.'}
+  >
+    <CapabilitiesSection locale={locale} />
+  </SectionShell>
+
+  <SectionShell
     id="credentials"
-    eyebrow={isSpanish ? '02 / Credenciales' : '02 / Credentials'}
+    eyebrow={isSpanish ? '03 / Credenciales' : '03 / Credentials'}
     title={isSpanish ? 'Bases verificadas para construir sistemas modernos' : 'Verified foundations for building modern systems'}
     intro={isSpanish ? 'Credenciales seleccionadas que respaldan la intersección entre estrategia de negocio, desarrollo de software, sistemas de IA y creación de productos digitales.' : 'Selected credentials supporting the intersection of business strategy, software development, AI systems and digital product creation.'}
   >
@@ -123,7 +133,7 @@ const aboutHighlightBadges = [
 
   <SectionShell
     id="mindmap"
-    eyebrow={isSpanish ? '03 / Mapa mental' : '03 / Mindmap'}
+    eyebrow={isSpanish ? '04 / Mapa mental' : '04 / Mindmap'}
     title={isSpanish ? 'La arquitectura de mi pensamiento' : 'The architecture of my thinking'}
     intro={isSpanish ? 'Cada producto, flujo de trabajo y automatización comienza con una red de ideas conectadas. Este mapa revela las disciplinas y conceptos que influyen en mi trabajo.' : 'Every product, workflow and automation starts with a network of connected ideas. This map reveals the disciplines and concepts that influence my work.'}
   >
@@ -132,7 +142,7 @@ const aboutHighlightBadges = [
 
   <SectionShell
     id="books"
-    eyebrow={isSpanish ? '04 / Lecturas estratégicas' : '04 / Strategic Reading'}
+    eyebrow={isSpanish ? '05 / Lecturas estratégicas' : '05 / Strategic Reading'}
     title={isSpanish ? 'Un sistema de lectura estratégica detrás del trabajo' : 'A strategic reading system behind the work'}
     intro={isSpanish ? 'Una colección continua de ideas que sigue dando forma a cómo pienso sobre estrategia, sistemas, producto, IA y creación de valor a largo plazo.' : 'An ongoing collection of ideas that continue to shape how I think about strategy, systems, product, AI and long-term value creation.'}
   >
@@ -141,7 +151,7 @@ const aboutHighlightBadges = [
 
   <SectionShell
     id="about"
-    eyebrow={isSpanish ? '05 / Por qué pienso así' : '05 / Why I think this way'}
+    eyebrow={isSpanish ? '06 / Por qué pienso así' : '06 / Why I think this way'}
     title={isSpanish ? 'Conectando los puntos' : 'Connecting the dots'}
     intro={isSpanish ? 'Un recorrido multidisciplinario por el diseño, los negocios, la tecnología y el pensamiento sistémico.' : 'A multidisciplinary path through design, business, technology and systems thinking.'}
   >
@@ -176,7 +186,7 @@ const aboutHighlightBadges = [
 
   <SectionShell
     id="contact"
-    eyebrow={isSpanish ? '06 / Contacto' : '06 / Contact'}
+    eyebrow={isSpanish ? '07 / Contacto' : '07 / Contact'}
     title={isSpanish ? 'Construyamos juntos' : "Let's build together"}
     intro={isSpanish ? 'Busco oportunidades para aportar, liderar y ayudar a organizaciones a avanzar más rápido mediante mejores sistemas y tecnología.' : 'Seeking opportunities to contribute, lead and help organizations move faster through better systems and technology.'}
   >
