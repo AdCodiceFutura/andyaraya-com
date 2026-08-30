@@ -6,6 +6,7 @@ import MindmapGraph from '../components/MindmapGraph.astro';
 import CredentialsSection from '../components/CredentialsSection.astro';
 import BooksCarousel from '../components/BooksCarousel.astro';
 import ExperienceDial from '../components/ExperienceDial.astro';
+import ServicesSection from '../components/ServicesSection.astro';
 import { educationEntries, personalStory } from '../data/about';
 import { contactChannels } from '../data/contact';
 
@@ -76,40 +77,44 @@ const aboutHighlightBadges = [
 ---
 
 <BaseLayout
-  title={isSpanish ? 'Andy Araya | Sistemas de IA y estrategia digital' : 'Andy Job Search Assistant | Andy Araya'}
-  description={isSpanish ? 'Andy Araya diseña sistemas de IA, automatizaciones y productos digitales que crean valor de negocio medible.' : "Andy Job Search Assistant is Andy Araya's personal local app for organizing job-search related Gmail messages, recruiter conversations, interviews, reminders, and follow-ups."}
+  title={isSpanish ? 'Andy Araya | Automatización con IA y estrategia de negocio en Costa Rica' : 'Andy Araya | AI Automation and Business Strategy in Costa Rica'}
+  description={isSpanish ? 'Andy Araya diseña automatizaciones con IA, sistemas y software a medida para empresas que buscan crear valor económico medible.' : 'Andy Araya designs AI automation, custom systems, and software for companies seeking measurable economic value.'}
   lang={locale}
 >
   <script slot="head" type="application/ld+json" set:html={JSON.stringify({
     '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: isSpanish ? 'Andy Araya — Sistemas de IA y estrategia digital' : 'Andy Job Search Assistant',
-    applicationCategory: 'ProductivityApplication',
-    operatingSystem: 'Local development environment',
-    creator: {
+    '@graph': [{
       '@type': 'Person',
+      '@id': 'https://andyaraya.com/#andy-araya',
       name: 'Andy Araya',
-      url: 'https://andyaraya.com/'
-    },
-    description: isSpanish
-      ? 'Andy Araya diseña sistemas de IA, automatizaciones y productos digitales que crean valor de negocio medible.'
-      : 'Andy Job Search Assistant is a personal local application used by Andy Araya to organize job-search related Gmail messages, recruiter conversations, interview scheduling, reminders, and follow-ups.',
-    url: 'https://andyaraya.com/'
+      url: 'https://andyaraya.com/',
+      sameAs: ['https://www.linkedin.com/in/andycr/'],
+      jobTitle: isSpanish ? 'Estratega de negocio y desarrollador de software' : 'Business strategist and software developer',
+      description: isSpanish ? 'Desarrollador de software y estratega de negocios especializado en automatización con IA y sistemas de alto impacto.' : 'Software developer and business strategist specializing in AI automation and high-impact systems.'
+    }, {
+      '@type': 'ProfessionalService',
+      name: 'Andy Araya — AI Automation and Business Strategy',
+      url: 'https://andyaraya.com/',
+      areaServed: { '@type': 'Country', name: 'Costa Rica' },
+      priceRange: '$10,000+',
+      description: isSpanish ? 'Consultoría estratégica, automatización con IA, sistemas y software a medida para empresas.' : 'Strategic consulting, AI automation, custom systems, and software for businesses.',
+      founder: { '@id': 'https://andyaraya.com/#andy-araya' }
+    }]
   })}></script>
   <Hero locale={locale} />
 
-  <section class="sr-only" aria-labelledby="app-purpose-summary">
-    <h2 id="app-purpose-summary">{isSpanish ? 'Perfil profesional de Andy Araya' : 'Andy Job Search Assistant'}</h2>
-    <p>
-      {isSpanish
-        ? 'Andy Araya diseña sistemas de IA, automatizaciones y productos digitales para empresas que buscan crear valor de negocio medible.'
-        : "Andy Job Search Assistant is a personal local application used by Andy Araya to organize job-search related Gmail messages, recruiter conversations, interview scheduling, reminders, and follow-ups. The app is intended for Andy Araya's own Google account and supports his job search workflow."}
-    </p>
-  </section>
+  <SectionShell
+    id="services"
+    eyebrow={isSpanish ? '01 / Servicios' : '01 / Services'}
+    title={isSpanish ? 'Automatización con IA y sistemas que mueven el negocio' : 'AI automation and systems that move the business forward'}
+    intro={isSpanish ? 'Para empresas que necesitan convertir una oportunidad operativa o comercial en una capacidad real y medible.' : 'For companies that need to turn an operational or commercial opportunity into a real, measurable capability.'}
+  >
+    <ServicesSection locale={locale} />
+  </SectionShell>
 
   <SectionShell
     id="credentials"
-    eyebrow={isSpanish ? '01 / Credenciales' : '01 / Credentials'}
+    eyebrow={isSpanish ? '02 / Credenciales' : '02 / Credentials'}
     title={isSpanish ? 'Bases verificadas para construir sistemas modernos' : 'Verified foundations for building modern systems'}
     intro={isSpanish ? 'Credenciales seleccionadas que respaldan la intersección entre estrategia de negocio, desarrollo de software, sistemas de IA y creación de productos digitales.' : 'Selected credentials supporting the intersection of business strategy, software development, AI systems and digital product creation.'}
   >
@@ -118,7 +123,7 @@ const aboutHighlightBadges = [
 
   <SectionShell
     id="mindmap"
-    eyebrow={isSpanish ? '02 / Mapa mental' : '02 / Mindmap'}
+    eyebrow={isSpanish ? '03 / Mapa mental' : '03 / Mindmap'}
     title={isSpanish ? 'La arquitectura de mi pensamiento' : 'The architecture of my thinking'}
     intro={isSpanish ? 'Cada producto, flujo de trabajo y automatización comienza con una red de ideas conectadas. Este mapa revela las disciplinas y conceptos que influyen en mi trabajo.' : 'Every product, workflow and automation starts with a network of connected ideas. This map reveals the disciplines and concepts that influence my work.'}
   >
@@ -127,7 +132,7 @@ const aboutHighlightBadges = [
 
   <SectionShell
     id="books"
-    eyebrow={isSpanish ? '03 / Lecturas estratégicas' : '03 / Strategic Reading'}
+    eyebrow={isSpanish ? '04 / Lecturas estratégicas' : '04 / Strategic Reading'}
     title={isSpanish ? 'Un sistema de lectura estratégica detrás del trabajo' : 'A strategic reading system behind the work'}
     intro={isSpanish ? 'Una colección continua de ideas que sigue dando forma a cómo pienso sobre estrategia, sistemas, producto, IA y creación de valor a largo plazo.' : 'An ongoing collection of ideas that continue to shape how I think about strategy, systems, product, AI and long-term value creation.'}
   >
@@ -136,7 +141,7 @@ const aboutHighlightBadges = [
 
   <SectionShell
     id="about"
-    eyebrow={isSpanish ? '04 / Por qué pienso así' : '04 / Why I think this way'}
+    eyebrow={isSpanish ? '05 / Por qué pienso así' : '05 / Why I think this way'}
     title={isSpanish ? 'Conectando los puntos' : 'Connecting the dots'}
     intro={isSpanish ? 'Un recorrido multidisciplinario por el diseño, los negocios, la tecnología y el pensamiento sistémico.' : 'A multidisciplinary path through design, business, technology and systems thinking.'}
   >
@@ -171,7 +176,7 @@ const aboutHighlightBadges = [
 
   <SectionShell
     id="contact"
-    eyebrow={isSpanish ? '05 / Contacto' : '05 / Contact'}
+    eyebrow={isSpanish ? '06 / Contacto' : '06 / Contact'}
     title={isSpanish ? 'Construyamos juntos' : "Let's build together"}
     intro={isSpanish ? 'Busco oportunidades para aportar, liderar y ayudar a organizaciones a avanzar más rápido mediante mejores sistemas y tecnología.' : 'Seeking opportunities to contribute, lead and help organizations move faster through better systems and technology.'}
   >

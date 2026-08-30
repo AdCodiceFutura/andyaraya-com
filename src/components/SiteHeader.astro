@@ -4,7 +4,7 @@ import { navigation } from '../data/navigation';
 const { locale = 'en' } = Astro.props;
 const isSpanish = locale === 'es';
 const labels = isSpanish
-  ? ['Inicio', 'Credenciales', 'Mapa mental', 'Lecturas estratégicas', 'Acerca de', 'Contacto']
+  ? ['Inicio', 'Servicios', 'Credenciales', 'Mapa mental', 'Lecturas estratégicas', 'Acerca de', 'Contacto']
   : navigation.map((item) => item.label);
 const localizedNavigation = navigation.map((item, index) => ({ ...item, label: labels[index] }));
 const languageLabel = isSpanish ? 'EN' : 'ES';

@@ -1,0 +1,47 @@
+---
+const { locale = 'en' } = Astro.props;
+const isSpanish = locale === 'es';
+const content = isSpanish
+  ? {
+      cards: [
+        ['Automatización con IA', 'Diseño e implementación de flujos de trabajo que reducen tareas manuales, conectan herramientas y mejoran la operación.'],
+        ['Sistemas y software a medida', 'Herramientas internas, integraciones y productos digitales creados alrededor del proceso y objetivo real de la empresa.'],
+        ['Estrategia para valor económico', 'Diagnóstico y priorización de oportunidades de automatización, eficiencia, escalabilidad e ingresos antes de construir.']
+      ],
+      investment: 'Las consultorías estratégicas comienzan desde USD 10,000 y están dirigidas a empresas listas para invertir en una oportunidad de alto impacto.',
+      fit: 'Ideal para líderes que necesitan estrategia de negocio y ejecución técnica en una misma colaboración.'
+    }
+  : {
+      cards: [
+        ['AI automation', 'Design and implementation of workflows that reduce manual work, connect tools, and improve operations.'],
+        ['Custom systems and software', 'Internal tools, integrations, and digital products built around the company’s real process and objective.'],
+        ['Strategy for economic value', 'Diagnosis and prioritization of automation, efficiency, scalability, and revenue opportunities before building.']
+      ],
+      investment: 'Strategic consulting engagements start at USD 10,000 and are intended for companies ready to invest in a high-impact opportunity.',
+      fit: 'Best suited to leaders who need business strategy and technical execution in one accountable collaboration.'
+    };
+---
+
+<div class="services-grid" data-stagger>
+  {content.cards.map(([title, description]) => (
+    <article class="glass-card service-card rounded-[1.35rem]" data-reveal-child>
+      <h3>{title}</h3>
+      <p>{description}</p>
+    </article>
+  ))}
+</div>
+<div class="service-note" data-reveal-child>
+  <p>{content.investment}</p>
+  <p>{content.fit}</p>
+</div>
+
+<style>
+  .services-grid { display: grid; gap: 1rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .service-card { min-height: 13rem; padding: 1.5rem; border-color: rgba(103, 232, 249, 0.15); background: linear-gradient(145deg, rgba(34, 211, 238, 0.08), rgba(255,255,255,0.025) 46%, rgba(157, 77, 255, 0.07)); }
+  .service-card h3 { color: white; font-size: 1.25rem; font-weight: 650; line-height: 1.2; }
+  .service-card p, .service-note p { margin-top: 1rem; color: rgba(255,255,255,0.7); font-size: 0.98rem; line-height: 1.65; }
+  .service-note { max-width: 54rem; margin-top: 1.75rem; padding: 1.2rem 1.35rem; border-left: 2px solid rgba(103, 232, 249, 0.7); background: rgba(255,255,255,0.025); }
+  .service-note p { margin: 0; }
+  .service-note p + p { margin-top: 0.55rem; }
+  @media (max-width: 760px) { .services-grid { grid-template-columns: 1fr; } .service-card { min-height: auto; } }
+</style>
