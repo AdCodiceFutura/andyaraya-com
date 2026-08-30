@@ -5,12 +5,12 @@ import '../styles/global.css';
 const {
   title = 'Andy Araya',
   description = 'Creative Technologist, AI Systems Builder, and Digital Product Strategist.',
-  lang = 'en'
+  lang = 'es'
 } = Astro.props;
 const siteOrigin = 'https://andyaraya.com';
 const path = Astro.url.pathname;
 const canonicalUrl = `${siteOrigin}${path}`;
-const alternatePath = lang === 'es' ? path.replace(/^\/es/, '') || '/' : `/es${path}`;
+const alternatePath = lang === 'en' ? path.replace(/^\/en(?=\/|$)/, '') || '/' : `/en${path}`;
 ---
 
 <!doctype html>
@@ -22,7 +22,7 @@ const alternatePath = lang === 'es' ? path.replace(/^\/es/, '') || '/' : `/es${p
     <meta name="theme-color" content="#050507" />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="alternate" hreflang={lang === 'es' ? 'en' : 'es'} href={`${siteOrigin}${alternatePath}`} />
-    <link rel="alternate" hreflang="x-default" href={`${siteOrigin}${lang === 'es' ? alternatePath : path}`} />
+    <link rel="alternate" hreflang="x-default" href={`${siteOrigin}${lang === 'es' ? path : alternatePath}`} />
     <link rel="icon" href="/favicon.svg" />
     <title>{title}</title>
     <slot name="head" />
@@ -43,7 +43,7 @@ const alternatePath = lang === 'es' ? path.replace(/^\/es/, '') || '/' : `/es${p
         <p>Andy Araya</p>
         <div class="flex flex-col items-start gap-3 lg:items-end">
           <nav class="flex flex-wrap gap-x-5 gap-y-2" aria-label="Legal">
-            <a class="transition hover:text-white" href={lang === 'es' ? '/es/faq/' : '/faq/'}>FAQ</a>
+            <a class="transition hover:text-white" href={lang === 'es' ? '/faq/' : '/en/faq/'}>FAQ</a>
             <a class="transition hover:text-white" href="/andy-araya-ai-profile.md">{lang === 'es' ? 'Perfil legible para IA' : 'AI-readable profile'}</a>
             <a class="transition hover:text-white" href="/privacy-policy">{lang === 'es' ? 'Política de privacidad' : 'Privacy Policy'}</a>
             <a class="transition hover:text-white" href="/terms-of-service">{lang === 'es' ? 'Términos de servicio' : 'Terms of Service'}</a>

@@ -8,12 +8,12 @@ const labels = isSpanish
   : navigation.map((item) => item.label);
 const localizedNavigation = navigation.map((item, index) => ({ ...item, label: labels[index] }));
 const languageLabel = isSpanish ? 'EN' : 'ES';
-const languageHref = isSpanish ? '/' : '/es';
+const languageHref = isSpanish ? '/en/' : '/';
 ---
 
 <header class="glass-nav sticky top-0 z-50 border-b border-white/8 lg:fixed lg:inset-x-4 lg:top-4 lg:mx-auto lg:w-auto lg:max-w-7xl lg:rounded-3xl lg:border">
   <div class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8 lg:py-3">
-    <a href={`${isSpanish ? '/es' : '/'}#home`} class="flex items-center gap-3 text-sm font-semibold tracking-[0.14em] text-white/90">
+    <a href={isSpanish ? '/#home' : '/en/#home'} class="flex items-center gap-3 text-sm font-semibold tracking-[0.14em] text-white/90">
       <span class="glass-card flex h-11 w-[4.2rem] items-center justify-center overflow-hidden rounded-2xl px-2">
         <img
           src="/images/branding/Logo_AndyAraya.svg"
@@ -27,13 +27,13 @@ const languageHref = isSpanish ? '/' : '/es';
     <nav class="hidden items-center gap-6 lg:flex" aria-label="Primary">
       {localizedNavigation.map((item) => (
         <a
-          href={isSpanish ? `/es${item.href}` : `/${item.href}`}
+          href={isSpanish ? `/${item.href}` : `/en/${item.href}`}
           class="rounded-full px-2 py-1 text-sm text-white/70 transition hover:bg-white/[0.05] hover:text-white"
         >
           {item.label}
         </a>
       ))}
-      <a href={isSpanish ? '/es/faq/' : '/faq/'} class="rounded-full px-2 py-1 text-sm text-white/70 transition hover:bg-white/[0.05] hover:text-white">FAQ</a>
+      <a href={isSpanish ? '/faq/' : '/en/faq/'} class="rounded-full px-2 py-1 text-sm text-white/70 transition hover:bg-white/[0.05] hover:text-white">FAQ</a>
       <a href={languageHref} hreflang={isSpanish ? 'en' : 'es'} class="rounded-full border border-white/15 px-2.5 py-1 text-xs font-semibold tracking-[0.12em] text-white/80 transition hover:border-cyan-300/60 hover:text-white">{languageLabel}</a>
     </nav>
 
@@ -45,13 +45,13 @@ const languageHref = isSpanish ? '/' : '/es';
         <nav class="grid gap-1" aria-label="Mobile">
           {localizedNavigation.map((item) => (
             <a
-              href={isSpanish ? `/es${item.href}` : `/${item.href}`}
+              href={isSpanish ? `/${item.href}` : `/en/${item.href}`}
               class="rounded-2xl px-3 py-3 text-sm text-white/80 transition hover:bg-white/6 hover:text-white"
             >
               {item.label}
             </a>
           ))}
-          <a href={isSpanish ? '/es/faq/' : '/faq/'} class="rounded-2xl px-3 py-3 text-sm text-white/80 transition hover:bg-white/6 hover:text-white">FAQ</a>
+          <a href={isSpanish ? '/faq/' : '/en/faq/'} class="rounded-2xl px-3 py-3 text-sm text-white/80 transition hover:bg-white/6 hover:text-white">FAQ</a>
           <a href={languageHref} hreflang={isSpanish ? 'en' : 'es'} class="rounded-2xl px-3 py-3 text-sm font-semibold text-cyan-200 transition hover:bg-white/6 hover:text-white">{isSpanish ? 'English' : 'Español'}</a>
         </nav>
       </div>
