@@ -137,6 +137,19 @@ body::before {
     0 18px 50px rgba(0, 0, 0, 0.28);
 }
 
+@media (min-width: 1024px) {
+  .site-header {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    left: 1rem;
+    width: auto;
+    max-width: 80rem;
+    margin-inline: auto;
+    border-radius: 1.5rem;
+  }
+}
+
 .glass-chip,
 .glass-button {
   background:
