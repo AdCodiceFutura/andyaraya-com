@@ -24,7 +24,6 @@ const alternatePath = lang === 'es' ? path.replace(/^\/es/, '') || '/' : `/es${p
     <link rel="alternate" hreflang={lang === 'es' ? 'en' : 'es'} href={`${siteOrigin}${alternatePath}`} />
     <link rel="alternate" hreflang="x-default" href={`${siteOrigin}${lang === 'es' ? alternatePath : path}`} />
     <link rel="icon" href="/favicon.svg" />
-    <script async src="https://news.google.com/swg/js/v1/publisher.js"></script>
     <title>{title}</title>
     <slot name="head" />
   </head>
@@ -49,12 +48,12 @@ const alternatePath = lang === 'es' ? path.replace(/^\/es/, '') || '/' : `/es${p
             <a class="transition hover:text-white" href="/privacy-policy">{lang === 'es' ? 'Política de privacidad' : 'Privacy Policy'}</a>
             <a class="transition hover:text-white" href="/terms-of-service">{lang === 'es' ? 'Términos de servicio' : 'Terms of Service'}</a>
           </nav>
-          <div
-            google-add-preferred-source-btn
-            data-theme="dark"
-            data-lang={lang}
-            aria-label={lang === 'es' ? 'Añadir AndyAraya.com como fuente preferida en Google' : 'Add AndyAraya.com as a preferred Google source'}
-          ></div>
+          <a
+            class="glass-button inline-flex items-center rounded-full px-4 py-2 text-sm font-medium text-white transition hover:border-cyan-300/40 hover:text-cyan-100"
+            href="https://www.google.com/preferences/source?q=andyaraya.com"
+          >
+            {lang === 'es' ? 'Añadir AndyAraya.com como fuente preferida en Google' : 'Add AndyAraya.com as a preferred Google source'}
+          </a>
         </div>
       </div>
     </footer>
