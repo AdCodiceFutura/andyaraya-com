@@ -58,22 +58,47 @@ const content = isSpanish
 </section>
 
 <style>
+  @property --whatsapp-border-angle {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg;
+  }
+
   .hero-whatsapp-button {
-    border: 1px solid rgba(37, 211, 102, 0.52);
+    --whatsapp-border-angle: 0deg;
+    border: 1px solid transparent;
     background:
       radial-gradient(circle at 20% 0%, rgba(37, 211, 102, 0.2), transparent 54%),
-      linear-gradient(180deg, rgba(37, 211, 102, 0.18), rgba(15, 112, 54, 0.13));
+      linear-gradient(180deg, rgba(37, 211, 102, 0.18), rgba(15, 112, 54, 0.13)),
+      conic-gradient(
+        from var(--whatsapp-border-angle),
+        transparent 0deg 286deg,
+        rgba(37, 211, 102, 0.2) 300deg,
+        #d1fae5 321deg,
+        #25d366 337deg,
+        transparent 354deg
+      );
+    background-clip: padding-box, padding-box, border-box;
     box-shadow:
       inset 0 1px 0 rgba(204, 255, 220, 0.23),
       0 12px 30px rgba(0, 0, 0, 0.22),
-      0 0 24px rgba(37, 211, 102, 0.14);
+      0 0 24px rgba(37, 211, 102, 0.14),
+      0 0 0 1px rgba(37, 211, 102, 0.52);
+    animation: whatsapp-border-orbit 3.2s linear infinite;
   }
 
   .hero-whatsapp-button:hover {
-    border-color: rgba(89, 239, 145, 0.8);
     background:
       radial-gradient(circle at 20% 0%, rgba(89, 239, 145, 0.26), transparent 54%),
-      linear-gradient(180deg, rgba(37, 211, 102, 0.26), rgba(15, 112, 54, 0.2));
+      linear-gradient(180deg, rgba(37, 211, 102, 0.26), rgba(15, 112, 54, 0.2)),
+      conic-gradient(
+        from var(--whatsapp-border-angle),
+        transparent 0deg 286deg,
+        rgba(37, 211, 102, 0.2) 300deg,
+        #d1fae5 321deg,
+        #25d366 337deg,
+        transparent 354deg
+      );
   }
 
   .hero-whatsapp-button:focus-visible {
@@ -100,6 +125,14 @@ const content = isSpanish
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-width: 1.85;
+  }
+
+  @keyframes whatsapp-border-orbit {
+    to { --whatsapp-border-angle: 360deg; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-whatsapp-button { animation: none; }
   }
 
 </style>
