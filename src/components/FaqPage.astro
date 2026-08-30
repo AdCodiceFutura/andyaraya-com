@@ -6,12 +6,9 @@ const { locale = 'en' } = Astro.props;
 const isSpanish = locale === 'es';
 const items = faqs[isSpanish ? 'es' : 'en'];
 const title = isSpanish ? 'Preguntas frecuentes sobre automatización con IA' : 'Frequently asked questions about AI automation';
-const intro = isSpanish
-  ? 'Respuestas directas para empresas que evalúan automatización de procesos, sistemas de IA y desarrollo de software a medida en Costa Rica.'
-  : 'Direct answers for companies evaluating process automation, AI systems, and custom software development in Costa Rica.';
 ---
 
-<BaseLayout title={`${title} | Andy Araya`} description={intro} lang={locale}>
+<BaseLayout title={`${title} | Andy Araya`} description={isSpanish ? 'Preguntas frecuentes sobre automatización con IA y desarrollo de software.' : 'Frequently asked questions about AI automation and software development.'} lang={locale}>
   <script slot="head" type="application/ld+json" set:html={JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -27,7 +24,6 @@ const intro = isSpanish
     <div class="mx-auto max-w-4xl px-4 py-20 sm:px-6 lg:px-8">
       <p class="text-xs font-semibold uppercase tracking-[0.25em] text-cyan-300/80">{isSpanish ? 'FAQ / IA y automatización' : 'FAQ / AI and automation'}</p>
       <h1 class="mt-5 text-4xl font-semibold tracking-tight text-white sm:text-6xl">{title}</h1>
-      <p class="mt-6 max-w-3xl text-lg leading-8 text-white/70">{intro}</p>
     </div>
   </section>
 
