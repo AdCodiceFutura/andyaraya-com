@@ -9,7 +9,6 @@ export const profile = {
   statement: 'I build intelligent systems, automation workflows and digital products that create real impact.',
   location: 'Heredia, Costa Rica',
   email: 'andyarayacr@gmail.com',
-  phone: '+506 8308-4587',
   linkedinUrl: 'https://www.linkedin.com/in/andycr/'
 } as const;
 
